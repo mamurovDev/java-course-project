@@ -1,9 +1,15 @@
+
 public class Introduction {
+
     public Introduction() {
 
     }
 
-    public void intro() {
-        System.out.println("Toys Warehouse");
+    public void showBrand() {
+        System.out.println("\u001B[1m" + "Toys warehouse");
+    }
+
+    public void showCommands() {
+        System.out.println();
     }
 }
