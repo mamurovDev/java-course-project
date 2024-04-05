@@ -3,5 +3,6 @@ public class Main {
         Introduction sayHello = new Introduction();
         sayHello.showBrand();
         sayHello.showCommands();
+        sayHello.showCommands();
     }
 }
