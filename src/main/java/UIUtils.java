@@ -1,5 +1,7 @@
+import java.util.Scanner;
 
-public class Introduction {
+
+public class UIUtils {
 
     final static private String[] commands = {
             "list: Show all products",
@@ -7,6 +9,7 @@ public class Introduction {
             "clear: Clear all history in console",
             "exit: exit the software"
     };
+    static boolean isExited = false;
     final static private String line = "------------------------------------------------------------------------";
     final static private String name = "Nurmuahmmad";
     final static private String email = "nurmuhammad_mamurjonov@student.itpu.uz";
@@ -28,6 +31,34 @@ public class Introduction {
             System.out.println("   * " + command);
         }
         System.out.println(Colors.applyStyle(ColorsEnum.white, line + "\n", false));
+    }
+
+    public static String waitForCommand() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (!isExited) {
+            System.out.println("Waiting for a command...");
+            String currentCommand = scanner.nextLine().trim();
+            switch (currentCommand) {
+                case "exit":
+                    isExited = true;
+                    break;
+                case "clear":
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+
+                    System.out.println(Colors.applyStyle(ColorsEnum.white, "Console has been cleaned.\n", false));
+                    break;
+                case "help":
+                    UIUtils.showCommands();
+                    break;
+                default:
+                    return currentCommand;
+            }
+        }
+
+        scanner.close();
+        return null;
     }
 
 }
