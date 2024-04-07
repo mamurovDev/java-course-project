@@ -1,7 +1,12 @@
+package com.itpu.warehouse.utils;
 
 enum ColorsEnum {
     green, purple, white
 }
+
+/**
+ * InnerColors
+ */
 
 public class Colors {
     public static String applyStyle(ColorsEnum color, String str, boolean isBold) {

@@ -1,5 +1,9 @@
+package com.itpu.warehouse.utils;
 import java.util.Scanner;
 
+/**
+ * InnerUIUtils
+ */
 
 public class UIUtils {
 

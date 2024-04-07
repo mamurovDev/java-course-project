@@ -1,4 +1,7 @@
+package com.itpu.warehouse;
 import java.io.Serializable;
+
+import com.itpu.warehouse.utils.UIUtils;
 
 public class Main implements Serializable {
 
