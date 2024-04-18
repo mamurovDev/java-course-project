@@ -5,7 +5,13 @@ import java.util.Objects;
 /**
  * DollToy
  */
-public class DollToy {
+public class DollToy extends Toy {
+    private String id;
+    private String name;
+    private String category;
+    private double price;
+    private int recommendedAge;
+
     public String getId() {
         return this.id;
     }
@@ -22,10 +28,9 @@ public class DollToy {
         return this.price;
     }
 
-    private String id;
-    private String name;
-    private String category;
-    private double price;
+    public int getRecommendedAge() {
+        return this.recommendedAge;
+    }
 
     @Override
     public boolean equals(Object obj) {

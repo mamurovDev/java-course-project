@@ -11,6 +11,7 @@ public class ConstructiveToy extends Toy {
     private String name;
     private String category;
     private double price;
+    private int recommendedAge;
 
     public String getId() {
         return this.id;
@@ -26,6 +27,10 @@ public class ConstructiveToy extends Toy {
 
     public double getPrice() {
         return this.price;
+    }
+
+    public int getRecommendedAge() {
+        return this.recommendedAge;
     }
 
     @Override

@@ -9,6 +9,7 @@ public abstract class Toy {
     private String name;
     private String category;
     private double price;
+    private int recommendedAge;
 
     public abstract String getId();
 
@@ -17,9 +18,10 @@ public abstract class Toy {
     public abstract String getCategory();
 
     public abstract double getPrice();
-
+    
+    public abstract int getRecommendedAge();
     @Override
-    public abstract String toString();
+    public abstract String toString();  
 
     @Override
     public abstract boolean equals(Object obj);

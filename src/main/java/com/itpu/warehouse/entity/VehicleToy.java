@@ -11,6 +11,7 @@ public class VehicleToy extends Toy {
     private String name;
     private String category;
     private double price;
+    private int recommmendedAge;
 
     public String getId() {
         return this.id;
@@ -26,6 +27,10 @@ public class VehicleToy extends Toy {
 
     public double getPrice() {
         return this.price;
+    }
+
+    public int getRecommendedAge() {
+        return this.recommmendedAge;
     }
 
     @Override
