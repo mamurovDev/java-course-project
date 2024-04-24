@@ -1,6 +1,8 @@
 package com.itpu.warehouse.dao;
+
 import java.util.List;
 import com.itpu.warehouse.entity.SoftToy;
+
 public class SoftToyDAOImpl implements SoftToyDAO {
     @Override
     public void deleteToy(String id) {

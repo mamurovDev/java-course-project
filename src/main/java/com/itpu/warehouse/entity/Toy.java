@@ -18,10 +18,11 @@ public abstract class Toy {
     public abstract String getCategory();
 
     public abstract double getPrice();
-    
+
     public abstract int getRecommendedAge();
+
     @Override
-    public abstract String toString();  
+    public abstract String toString();
 
     @Override
     public abstract boolean equals(Object obj);

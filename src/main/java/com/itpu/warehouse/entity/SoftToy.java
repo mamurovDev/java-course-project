@@ -25,10 +25,11 @@ public class SoftToy extends Toy {
     public double getPrice() {
         return this.price;
     }
-    
+
     public int getRecommendedAge() {
         return this.recommendedAge;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

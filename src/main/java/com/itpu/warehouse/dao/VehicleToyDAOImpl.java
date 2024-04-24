@@ -1,6 +1,8 @@
 package com.itpu.warehouse.dao;
-import com.itpu.warehouse.entity.SoftToy;
+
+import com.itpu.warehouse.entity.VehicleToy;
 import java.util.List;
+
 public class VehicleToyDAOImpl implements VehicleToyDAO {
     @Override
     public void deleteToy(String id) {
@@ -9,25 +11,25 @@ public class VehicleToyDAOImpl implements VehicleToyDAO {
     }
 
     @Override
-    public List<SoftToy> getAllToys() {
+    public List<VehicleToy> getAllToys() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public SoftToy getToyById(String id) {
+    public VehicleToy getToyById(String id) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void saveToy(SoftToy toy) {
+    public void saveToy(VehicleToy toy) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void updateToy(SoftToy toy) {
+    public void updateToy(VehicleToy toy) {
         // TODO Auto-generated method stub
 
     }
