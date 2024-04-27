@@ -3,15 +3,62 @@ package com.itpu.warehouse.entity;
 import java.util.Objects;
 
 /**
- * InnerPuzzleToy
+ * PuzzleToy
  */
-
 public class PuzzleToy extends Toy {
     private String id;
     private String name;
     private String category;
     private double price;
     private int recommendedAge;
+
+    private PuzzleToy(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.category = builder.category;
+        this.price = builder.price;
+        this.recommendedAge = builder.recommendedAge;
+    }
+
+    public static class Builder {
+        // Required parameters
+        private String id;
+        private String name;
+
+        // Optional parameters
+        private String category;
+        private double price;
+        private int recommendedAge;
+
+        public Builder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder category(String category) {
+            this.category = category;
+            return this;
+        }
+
+        public Builder price(double price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder recommendedAge(int recommendedAge) {
+            this.recommendedAge = recommendedAge;
+            return this;
+        }
+
+        public PuzzleToy build() {
+            return new PuzzleToy(this);
+        }
+    }
 
     public String getId() {
         return this.id;
@@ -53,13 +100,12 @@ public class PuzzleToy extends Toy {
 
     @Override
     public String toString() {
-        return "InnerPuzzleToy [id=" + id + ", name=" + name + ", category="
-                + category + ", price=" + price + "]";
+        return "PuzzleToy [id=" + id + ", name=" + name + ", category="
+                + category + ", price=" + price + ", recommendedAge=" + recommendedAge + "]";
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, category, price);
+        return Objects.hash(id, name, category, price, recommendedAge);
     }
-
 }
