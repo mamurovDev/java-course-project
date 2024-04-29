@@ -1,15 +1,20 @@
 package com.itpu.warehouse.entity;
 
 /**
- * Products
+ * Abstract class representing a toy.
  */
 public abstract class Toy {
-    private String id;
-    private String name;
-    private String category;
-    private double price;
-    private int recommendedAge;
+    private String id; // The unique identifier of the toy
+    private String name; // The name of the toy
+    private String category; // The category of the toy
+    private double price; // The price of the toy
+    private int recommendedAge; // The recommended age for the toy
 
+    /**
+     * Constructs a new Toy object using a Builder.
+     *
+     * @param builder The Builder object to construct the Toy
+     */
     protected Toy(Builder<? extends Toy, ?> builder) {
         this.id = builder.id;
         this.name = builder.name;
@@ -18,59 +23,146 @@ public abstract class Toy {
         this.recommendedAge = builder.recommendedAge;
     }
 
+    /**
+     * Abstract Builder class for constructing Toy objects.
+     *
+     * @param <T> The type of Toy being built
+     * @param <B> The type of Builder being used
+     */
     public static abstract class Builder<T extends Toy, B extends Builder<T, B>> {
-        private String id;
-        private String name;
-        private String category;
-        private double price;
-        private int recommendedAge;
+        private String id; // The unique identifier of the toy
+        private String name; // The name of the toy
+        private String category; // The category of the toy
+        private double price; // The price of the toy
+        private int recommendedAge; // The recommended age for the toy
 
+        /**
+         * Sets the id of the toy.
+         *
+         * @param id The id to set
+         * @return This Builder object
+         */
         public B id(String id) {
             this.id = id;
             return self();
         }
 
+        /**
+         * Sets the name of the toy.
+         *
+         * @param name The name to set
+         * @return This Builder object
+         */
         public B name(String name) {
             this.name = name;
             return self();
         }
 
+        /**
+         * Sets the category of the toy.
+         *
+         * @param category The category to set
+         * @return This Builder object
+         */
         public B category(String category) {
             this.category = category;
             return self();
         }
 
+        /**
+         * Sets the price of the toy.
+         *
+         * @param price The price to set
+         * @return This Builder object
+         */
         public B price(double price) {
             this.price = price;
             return self();
         }
 
+        /**
+         * Sets the recommended age for the toy.
+         *
+         * @param recommendedAge The recommended age to set
+         * @return This Builder object
+         */
         public B recommendedAge(int recommendedAge) {
             this.recommendedAge = recommendedAge;
             return self();
         }
 
+        /**
+         * Abstract method to build the Toy object.
+         *
+         * @return The constructed Toy object
+         */
         public abstract T build();
 
+        /**
+         * Abstract method to return the instance of the Builder.
+         *
+         * @return This Builder object
+         */
         protected abstract B self();
     }
 
+    /**
+     * Abstract method to get the id of the toy.
+     *
+     * @return The id of the toy
+     */
     public abstract String getId();
 
+    /**
+     * Abstract method to get the name of the toy.
+     *
+     * @return The name of the toy
+     */
     public abstract String getName();
 
+    /**
+     * Abstract method to get the category of the toy.
+     *
+     * @return The category of the toy
+     */
     public abstract String getCategory();
 
+    /**
+     * Abstract method to get the price of the toy.
+     *
+     * @return The price of the toy
+     */
     public abstract double getPrice();
 
+    /**
+     * Abstract method to get the recommended age for the toy.
+     *
+     * @return The recommended age for the toy
+     */
     public abstract int getRecommendedAge();
 
+    /**
+     * Abstract method to return a string representation of the toy.
+     *
+     * @return A string representation of the toy
+     */
     @Override
     public abstract String toString();
 
+    /**
+     * Abstract method to check if the toy is equal to another object.
+     *
+     * @param obj The object to compare
+     * @return True if the objects are equal, false otherwise
+     */
     @Override
     public abstract boolean equals(Object obj);
 
+    /**
+     * Abstract method to return the hash code of the toy.
+     *
+     * @return The hash code of the toy
+     */
     @Override
     public abstract int hashCode();
 }

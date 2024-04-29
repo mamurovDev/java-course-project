@@ -4,6 +4,11 @@ import com.itpu.warehouse.entity.Toy;
 
 import java.util.List;
 
+/**
+ * Interface for accessing and manipulating data of toys in the database.
+ *
+ * @param <T> The type of toy entity
+ */
 public interface ToyDAO<T extends Toy> {
     // Method to retrieve all toys
     List<T> getAllToys();
