@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.itpu.warehouse.dao.DollToyDAO;
-import com.itpu.warehouse.entity.ConstructiveToy;
 import com.itpu.warehouse.entity.DollToy;
 
 /**
@@ -44,7 +43,7 @@ public class DollToyDAOImpl implements DollToyDAO {
     }
 
     private DollToy createDollToy(String[] values) {
-        return new DollToy.Builder()
+        return new DollToy.DollToyBuilder()
                 .name(values[0])
                 .category(values[1])
                 .price(Double.parseDouble(values[2]))

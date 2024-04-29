@@ -40,7 +40,7 @@ public class VehicleToyDAOImpl implements VehicleToyDAO {
     }
 
     private VehicleToy createVehicleToy(String[] values) {
-        return new VehicleToy.Builder()
+        return new VehicleToy.VehicleToyBuilder()
                 .name(values[0])
                 .category(values[1])
                 .price(Double.parseDouble(values[2]))

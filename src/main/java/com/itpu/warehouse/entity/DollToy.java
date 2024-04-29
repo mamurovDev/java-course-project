@@ -12,7 +12,8 @@ public class DollToy extends Toy {
     private double price;
     private int recommendedAge;
 
-    public DollToy(Builder builder) {
+    public DollToy(DollToyBuilder builder) {
+        super(builder);
         this.category = builder.category;
         this.id = builder.id;
         this.name = builder.name;
@@ -20,40 +21,44 @@ public class DollToy extends Toy {
         this.recommendedAge = builder.recommendedAge;
     }
 
-    public static class Builder {
+    public static class DollToyBuilder extends Builder<DollToy, DollToyBuilder> {
         private String id;
         private String name;
         private String category;
         private double price;
         private int recommendedAge;
 
-        public Builder id(String id) {
+        public DollToyBuilder id(String id) {
             this.id = id;
             return this;
         }
 
-        public Builder name(String name) {
+        public DollToyBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder category(String category) {
+        public DollToyBuilder category(String category) {
             this.category = category;
             return this;
         }
 
-        public Builder price(double price) {
+        public DollToyBuilder price(double price) {
             this.price = price;
             return this;
         }
 
-        public Builder recommendedAge(int recommendedAge) {
+        public DollToyBuilder recommendedAge(int recommendedAge) {
             this.recommendedAge = recommendedAge;
             return this;
         }
 
         public DollToy build() {
             return new DollToy(this);
+        }
+
+        public DollToyBuilder self() {
+            return this;
         }
     }
 

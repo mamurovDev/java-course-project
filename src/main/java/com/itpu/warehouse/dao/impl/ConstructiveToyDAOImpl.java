@@ -23,9 +23,8 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
 
     @Override
     public List<ConstructiveToy> getAllToys() {
-        try {
-            constructiveToys = new BufferedReader(new FileReader(path))
-                    .lines()
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            constructiveToys = reader.lines()
                     .skip(1)
                     .map(e -> createConstructiveToy(e.split(DELIMITER))).collect(Collectors.toList());
         } catch (Exception e) {
@@ -35,7 +34,7 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
     }
 
     private ConstructiveToy createConstructiveToy(String[] values) {
-        return new ConstructiveToy.Builder()
+        return new ConstructiveToy.ConstructiveToyBuilder()
                 .name(values[0])
                 .category(values[1])
                 .price(Double.parseDouble(values[2]))

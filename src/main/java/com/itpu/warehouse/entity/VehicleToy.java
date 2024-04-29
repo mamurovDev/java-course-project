@@ -13,48 +13,53 @@ public class VehicleToy extends Toy {
     private double price;
     private int recommendedAge;
 
-    public VehicleToy(Builder builder) {
-        this.category = builder.category;
+    public VehicleToy(VehicleToyBuilder builder) {
+        super(builder);
         this.id = builder.id;
         this.name = builder.name;
+        this.category = builder.category;
         this.price = builder.price;
         this.recommendedAge = builder.recommendedAge;
     }
 
-    public static class Builder {
+    public static class VehicleToyBuilder extends Builder<VehicleToy, VehicleToyBuilder> {
         private String id;
         private String name;
         private String category;
         private double price;
         private int recommendedAge;
 
-        public Builder id(String id) {
+        public VehicleToyBuilder id(String id) {
             this.id = id;
             return this;
         }
 
-        public Builder name(String name) {
+        public VehicleToyBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder category(String category) {
+        public VehicleToyBuilder category(String category) {
             this.category = category;
             return this;
         }
 
-        public Builder price(double price) {
+        public VehicleToyBuilder price(double price) {
             this.price = price;
             return this;
         }
 
-        public Builder recommendedAge(int recommendedAge) {
+        public VehicleToyBuilder recommendedAge(int recommendedAge) {
             this.recommendedAge = recommendedAge;
             return this;
         }
 
         public VehicleToy build() {
             return new VehicleToy(this);
+        }
+
+        public VehicleToyBuilder self() {
+            return this;
         }
 
     }

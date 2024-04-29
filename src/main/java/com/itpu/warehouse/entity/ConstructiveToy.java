@@ -13,7 +13,8 @@ public class ConstructiveToy extends Toy {
     private double price;
     private int recommendedAge;
 
-    public ConstructiveToy(Builder builder) {
+    public ConstructiveToy(ConstructiveToyBuilder builder) {
+        super(builder);
         this.category = builder.category;
         this.id = builder.id;
         this.name = builder.name;
@@ -21,7 +22,7 @@ public class ConstructiveToy extends Toy {
         this.recommendedAge = builder.recommendedAge;
     }
 
-    public static class Builder {
+    public static class ConstructiveToyBuilder extends Builder<ConstructiveToy, ConstructiveToyBuilder> {
 
         private String id;
         private String name;
@@ -29,33 +30,37 @@ public class ConstructiveToy extends Toy {
         private double price;
         private int recommendedAge;
 
-        public Builder id(String id) {
+        public ConstructiveToyBuilder id(String id) {
             this.id = id;
             return this;
         }
 
-        public Builder name(String name) {
+        public ConstructiveToyBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder category(String category) {
+        public ConstructiveToyBuilder category(String category) {
             this.category = category;
             return this;
         }
 
-        public Builder price(double price) {
+        public ConstructiveToyBuilder price(double price) {
             this.price = price;
             return this;
         }
 
-        public Builder recommendedAge(int recommendedAge) {
+        public ConstructiveToyBuilder recommendedAge(int recommendedAge) {
             this.recommendedAge = recommendedAge;
             return this;
         }
 
         public ConstructiveToy build() {
             return new ConstructiveToy(this);
+        }
+
+        public ConstructiveToyBuilder self() {
+            return this;
         }
     }
 

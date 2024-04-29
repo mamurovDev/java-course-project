@@ -41,7 +41,7 @@ public class SoftToyDAOImpl implements SoftToyDAO {
     }
 
     private SoftToy createPuzzleToy(String[] values) {
-        return new SoftToy.Builder()
+        return new SoftToy.SoftToyBuilder()
                 .name(values[0])
                 .category(values[1])
                 .price(Double.parseDouble(values[2]))

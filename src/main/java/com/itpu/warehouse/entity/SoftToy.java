@@ -2,17 +2,16 @@ package com.itpu.warehouse.entity;
 
 import java.util.Objects;
 
-/**
- * SoftToy
- */
 public class SoftToy extends Toy {
-    private String id;
-    private String name;
-    private String category;
-    private double price;
-    private int recommendedAge;
 
-    public SoftToy(Builder builder) {
+    private final String id;
+    private final String name;
+    private final String category;
+    private final double price;
+    private final int recommendedAge;
+
+    private SoftToy(SoftToyBuilder builder) {
+        super(builder);
         this.id = builder.id;
         this.name = builder.name;
         this.category = builder.category;
@@ -20,7 +19,8 @@ public class SoftToy extends Toy {
         this.recommendedAge = builder.recommendedAge;
     }
 
-    public static class Builder {
+    public static class SoftToyBuilder extends Builder<SoftToy, SoftToyBuilder> {
+
         // Required parameters
         private String id;
         private String name;
@@ -30,27 +30,27 @@ public class SoftToy extends Toy {
         private double price;
         private int recommendedAge;
 
-        public Builder id(String id) {
+        public SoftToyBuilder id(String id) {
             this.id = id;
             return this;
         }
 
-        public Builder name(String name) {
+        public SoftToyBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder category(String category) {
+        public SoftToyBuilder category(String category) {
             this.category = category;
             return this;
         }
 
-        public Builder price(double price) {
+        public SoftToyBuilder price(double price) {
             this.price = price;
             return this;
         }
 
-        public Builder recommendedAge(int recommendedAge) {
+        public SoftToyBuilder recommendedAge(int recommendedAge) {
             this.recommendedAge = recommendedAge;
             return this;
         }
@@ -59,26 +59,30 @@ public class SoftToy extends Toy {
             return new SoftToy(this);
         }
 
+        protected SoftToyBuilder self() {
+            return this;
+        }
+
     }
 
     public String getId() {
-        return this.id;
+        return id;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String getCategory() {
-        return this.category;
+        return category;
     }
 
     public double getPrice() {
-        return this.price;
+        return price;
     }
 
     public int getRecommendedAge() {
-        return this.recommendedAge;
+        return recommendedAge;
     }
 
     @Override
@@ -110,5 +114,4 @@ public class SoftToy extends Toy {
     public int hashCode() {
         return Objects.hash(id, name, category, price, recommendedAge);
     }
-
 }

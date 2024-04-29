@@ -40,7 +40,7 @@ public class PuzzleToyDAOImpl implements PuzzleToyDAO {
     }
 
     private PuzzleToy createPuzzleToy(String[] values) {
-        return new PuzzleToy.Builder()
+        return new PuzzleToy.PuzzleToyBuilder()
                 .name(values[0])
                 .category(values[1])
                 .price(Double.parseDouble(values[2]))
