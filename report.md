@@ -2,8 +2,8 @@
 
 ---
 
-**Author:** _Nurmuhammad_ _[email](Nurmuhammad_Mamurjonov@student.itpu.uz "Nurmuhammad's email")_
-**Last Pulish:** 08.04.2024
+**Author:** _Nurmuhammad_ | _[email](Nurmuhammad_Mamurjonov@student.itpu.uz "Nurmuhammad's email")_ |
+**Last Pulish:** 29.04.2024
 
 > published: 08.04.2024
 >
@@ -19,6 +19,6 @@
 > - README.me has been added to show some basic information about the warehouse project.
 
 > published 29.04.2024
-
+>
 > - All builder classes has been refactored,
 > - Full javadoc has been written.
