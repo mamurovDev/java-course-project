@@ -17,3 +17,8 @@
 > - DAO implementation has been done
 > - [report.md](./report.md "Path to the report.md file") file has been modified and some reports have been written
 > - README.me has been added to show some basic information about the warehouse project.
+
+> published 29.04.2024
+
+> - All builder classes has been refactored,
+> - Full javadoc has been written.
