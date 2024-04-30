@@ -3,7 +3,7 @@
 ---
 
 **Author:** _Nurmuhammad_ | _[email](Nurmuhammad_Mamurjonov@student.itpu.uz "Nurmuhammad's email")_ |
-**Last Pulish:** 29.04.2024
+**Last Pulish:** 30.04.2024
 
 > published: 08.04.2024
 >
@@ -22,3 +22,9 @@
 >
 > - All builder classes has been refactored,
 > - Full javadoc has been written.
+
+> published: 30.04.2024
+>
+> 1. Refactoring of the parent class Toy and its subclasses (SoftToy, VehicleToy, PuzzleToy, DollToy, ConstructiveToy).
+> 1. Addition of new properties to each subclass (mass for SoftToy, numberOfWheels for VehicleToy, difficulty for PuzzleToy, gender for DollToy, material for ConstructiveToy).
+> 1. Implementation of appropriate constructors, builder patterns, and overridden methods (equals, toString, hashCode) in each subclass.

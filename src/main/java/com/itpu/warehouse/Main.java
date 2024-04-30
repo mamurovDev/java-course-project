@@ -10,5 +10,6 @@ public class Main implements Serializable {
         UIUtils.showBrand();
         UIUtils.showCommands();
         System.out.println(UIUtils.waitForCommand());
+
     }
 }

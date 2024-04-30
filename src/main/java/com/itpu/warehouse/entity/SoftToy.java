@@ -6,11 +6,8 @@ import java.util.Objects;
  * Represents a soft toy, extending the abstract class Toy.
  */
 public class SoftToy extends Toy {
-    private final String id;              // The unique identifier of the soft toy
-    private final String name;            // The name of the soft toy
-    private final String category;        // The category of the soft toy
-    private final double price;           // The price of the soft toy
-    private final int recommendedAge;     // The recommended age for the soft toy
+
+    private final double mass; // The mass of the soft toy in kilograms
 
     /**
      * Constructs a new SoftToy object using a SoftToyBuilder.
@@ -19,78 +16,33 @@ public class SoftToy extends Toy {
      */
     private SoftToy(SoftToyBuilder builder) {
         super(builder);
-        this.id = builder.id;
-        this.name = builder.name;
-        this.category = builder.category;
-        this.price = builder.price;
-        this.recommendedAge = builder.recommendedAge;
+        this.mass = builder.mass;
+    }
+
+    /**
+     * Gets the mass of the soft toy in kilograms.
+     * 
+     * @return The mass of the soft toy
+     */
+    public double getMass() {
+        return mass;
     }
 
     /**
      * Builder class for constructing SoftToy objects.
      */
     public static class SoftToyBuilder extends Builder<SoftToy, SoftToyBuilder> {
-        // Required parameters
-        private String id;              // The unique identifier of the soft toy
-        private String name;            // The name of the soft toy
 
-        // Optional parameters
-        private String category;        // The category of the soft toy
-        private double price;           // The price of the soft toy
-        private int recommendedAge;     // The recommended age for the soft toy
+        private double mass; // The mass of the soft toy in kilograms
 
         /**
-         * Sets the id of the soft toy.
-         *
-         * @param id The id to set
-         * @return This SoftToyBuilder object
+         * Sets the mass of the soft toy.
+         * 
+         * @param mass
+         * @return SoftToyBuilder
          */
-        public SoftToyBuilder id(String id) {
-            this.id = id;
-            return this;
-        }
-
-        /**
-         * Sets the name of the soft toy.
-         *
-         * @param name The name to set
-         * @return This SoftToyBuilder object
-         */
-        public SoftToyBuilder name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        /**
-         * Sets the category of the soft toy.
-         *
-         * @param category The category to set
-         * @return This SoftToyBuilder object
-         */
-        public SoftToyBuilder category(String category) {
-            this.category = category;
-            return this;
-        }
-
-        /**
-         * Sets the price of the soft toy.
-         *
-         * @param price The price to set
-         * @return This SoftToyBuilder object
-         */
-        public SoftToyBuilder price(double price) {
-            this.price = price;
-            return this;
-        }
-
-        /**
-         * Sets the recommended age for the soft toy.
-         *
-         * @param recommendedAge The recommended age to set
-         * @return This SoftToyBuilder object
-         */
-        public SoftToyBuilder recommendedAge(int recommendedAge) {
-            this.recommendedAge = recommendedAge;
+        public SoftToyBuilder mass(double mass) {
+            this.mass = mass;
             return this;
         }
 
@@ -114,51 +66,6 @@ public class SoftToy extends Toy {
     }
 
     /**
-     * Gets the id of the soft toy.
-     *
-     * @return The id of the soft toy
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Gets the name of the soft toy.
-     *
-     * @return The name of the soft toy
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets the category of the soft toy.
-     *
-     * @return The category of the soft toy
-     */
-    public String getCategory() {
-        return category;
-    }
-
-    /**
-     * Gets the price of the soft toy.
-     *
-     * @return The price of the soft toy
-     */
-    public double getPrice() {
-        return price;
-    }
-
-    /**
-     * Gets the recommended age for the soft toy.
-     *
-     * @return The recommended age for the soft toy
-     */
-    public int getRecommendedAge() {
-        return recommendedAge;
-    }
-
-    /**
      * Checks if the soft toy is equal to another object.
      *
      * @param obj The object to compare
@@ -168,14 +75,11 @@ public class SoftToy extends Toy {
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        if (obj == null || !(obj instanceof SoftToy))
             return false;
         SoftToy softToy = (SoftToy) obj;
-        return Double.compare(softToy.price, price) == 0 &&
-                recommendedAge == softToy.recommendedAge &&
-                Objects.equals(id, softToy.id) &&
-                Objects.equals(name, softToy.name) &&
-                Objects.equals(category, softToy.category);
+        return super.equals(obj) &&
+                Double.compare(softToy.getMass(), mass) == 0;
     }
 
     /**
@@ -186,11 +90,12 @@ public class SoftToy extends Toy {
     @Override
     public String toString() {
         return "SoftToy{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", price=" + price +
-                ", recommendedAge=" + recommendedAge +
+                "id='" + getId() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", category='" + getCategory() + '\'' +
+                ", price=" + getPrice() +
+                ", recommendedAge=" + getRecommendedAge() +
+                ", mass=" + mass +
                 '}';
     }
 
@@ -201,6 +106,6 @@ public class SoftToy extends Toy {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, category, price, recommendedAge);
+        return Objects.hash(getId(), getName(), getCategory(), getPrice(), getRecommendedAge(), mass);
     }
 }

@@ -1,5 +1,7 @@
 package com.itpu.warehouse.entity;
 
+import java.util.Objects;
+
 /**
  * Abstract class representing a toy.
  */
@@ -107,62 +109,93 @@ public abstract class Toy {
     }
 
     /**
-     * Abstract method to get the id of the toy.
+     * Get the id of the toy.
      *
      * @return The id of the toy
      */
-    public abstract String getId();
+    public String getId() {
+        return id;
+    }
 
     /**
-     * Abstract method to get the name of the toy.
+     * Get the name of the toy.
      *
      * @return The name of the toy
      */
-    public abstract String getName();
+    public String getName() {
+        return name;
+    }
 
     /**
-     * Abstract method to get the category of the toy.
+     * Get the category of the toy.
      *
      * @return The category of the toy
      */
-    public abstract String getCategory();
+    public String getCategory() {
+        return category;
+    }
 
     /**
-     * Abstract method to get the price of the toy.
+     * Get the price of the toy.
      *
      * @return The price of the toy
      */
-    public abstract double getPrice();
+    public double getPrice() {
+        return price;
+    }
 
     /**
-     * Abstract method to get the recommended age for the toy.
+     * Get the recommended age for the toy.
      *
      * @return The recommended age for the toy
      */
-    public abstract int getRecommendedAge();
+    public int getRecommendedAge() {
+        return recommendedAge;
+    }
 
     /**
-     * Abstract method to return a string representation of the toy.
+     * Returns a string representation of the toy.
      *
      * @return A string representation of the toy
      */
     @Override
-    public abstract String toString();
+    public String toString() {
+        return "Toy{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", price=" + price +
+                ", recommendedAge=" + recommendedAge +
+                '}';
+    }
 
     /**
-     * Abstract method to check if the toy is equal to another object.
+     * Checks if the toy is equal to another object.
      *
      * @param obj The object to compare
      * @return True if the objects are equal, false otherwise
      */
     @Override
-    public abstract boolean equals(Object obj);
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Toy toy = (Toy) obj;
+        return Double.compare(toy.price, price) == 0 &&
+                recommendedAge == toy.recommendedAge &&
+                Objects.equals(id, toy.id) &&
+                Objects.equals(name, toy.name) &&
+                Objects.equals(category, toy.category);
+    }
 
     /**
-     * Abstract method to return the hash code of the toy.
+     * Returns the hash code of the toy.
      *
      * @return The hash code of the toy
      */
     @Override
-    public abstract int hashCode();
+    public int hashCode() {
+        return Objects.hash(id, name, category, price, recommendedAge);
+    }
 }
