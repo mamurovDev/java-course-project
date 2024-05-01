@@ -34,6 +34,11 @@ public class ConstructiveToy extends Toy {
     public static class ConstructiveToyBuilder extends Builder<ConstructiveToy, ConstructiveToyBuilder> {
         private String material; // The material of the constructive toy
 
+        public ConstructiveToyBuilder material(String material) {
+            this.material = material;
+            return this;
+        }
+
         /**
          * Builds the ConstructiveToy object.
          *

@@ -1,0 +1,11 @@
+id,name,category,price,recommendedAge,numberOfWheels
+1,Toy Car,Vehicle,9.99,3,4
+2,Remote Control Truck,Vehicle,24.50,5,6
+3,Miniature Racing Car,Vehicle,12.99,4,4
+4,Die-cast Model Car,Vehicle,18.75,6,4
+5,Toy Helicopter,Vehicle,15.99,5,0
+6,Model Train Set,Vehicle,29.99,6,0
+7,Toy Airplane,Vehicle,11.50,4,0
+8,RC Boat,Vehicle,19.25,6,0
+9,Construction Vehicle Toy Set,Vehicle,22.99,4,8
+10,Toy Motorcycle,Vehicle,8.49,3,2

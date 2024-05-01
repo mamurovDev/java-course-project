@@ -2,14 +2,7 @@ package com.itpu.warehouse.entity;
 
 import java.util.Objects;
 
-/**
- * Represents a doll toy, extending the abstract class Toy.
- */
-
-enum Gender {
-    MALE,
-    FEMALE
-}
+import com.itpu.warehouse.enums.Gender;
 
 public class DollToy extends Toy {
 
@@ -39,6 +32,11 @@ public class DollToy extends Toy {
      */
     public static class DollToyBuilder extends Builder<DollToy, DollToyBuilder> {
         private Gender gender; // The gender of the doll toy
+
+        public DollToyBuilder gender(Gender gender) {
+            this.gender = gender;
+            return this;
+        }
 
         /**
          * Builds the DollToy object.

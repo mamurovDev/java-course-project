@@ -3,7 +3,7 @@
 ---
 
 **Author:** _Nurmuhammad_ | _[email](Nurmuhammad_Mamurjonov@student.itpu.uz "Nurmuhammad's email")_ |
-**Last Pulish:** 30.04.2024
+**Last Pulish:** 01.05.2024
 
 > published: 08.04.2024
 >
@@ -28,3 +28,10 @@
 > 1. Refactoring of the parent class Toy and its subclasses (SoftToy, VehicleToy, PuzzleToy, DollToy, ConstructiveToy).
 > 1. Addition of new properties to each subclass (mass for SoftToy, numberOfWheels for VehicleToy, difficulty for PuzzleToy, gender for DollToy, material for ConstructiveToy).
 > 1. Implementation of appropriate constructors, builder patterns, and overridden methods (equals, toString, hashCode) in each subclass.
+
+> published 01.05.2024
+>
+> 1. Refactored DAO implementations to improve readability and maintainability.
+> 1. Added functionality to DAOImpl classes for retrieving data from CSV files.
+> 1. Updated CSV files to include additional fields and corrected formatting.
+> 1. Tested all DAOImpl classes to ensure they are working correctly.
