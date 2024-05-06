@@ -2,6 +2,7 @@ package com.itpu.warehouse.dao.impl;
 
 import com.itpu.warehouse.dao.DollToyDAO;
 import com.itpu.warehouse.entity.DollToy;
+import com.itpu.warehouse.entity.VehicleToy;
 import com.itpu.warehouse.enums.Gender;
 
 import java.io.BufferedReader;
@@ -18,21 +19,38 @@ import java.util.ArrayList;
 public class DollToyDAOImpl implements DollToyDAO {
     private final String DELIMITER = ","; // Adjust the delimiter as needed
     String filePath = "src/main/resources/doll_toys.csv"; // Adjust the file path with correct extension
+    BufferedReader reader;
 
     /**
-     * Default constructor.
+     * Constructor with default file path.
+     * 
+     * @throws RuntimeException If an error occurs while accessing or reading the
      */
     public DollToyDAOImpl() {
-
+        try {
+            this.reader = new BufferedReader(new FileReader(filePath));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (Exception e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        }
     }
 
     /**
      * Constructor with a custom file path.
      *
      * @param filePath The file path to load doll toy data from
+     * @throws RuntimeException If an error occurs while accessing or reading the
      */
     public DollToyDAOImpl(String filePath) {
         this.filePath = filePath;
+        try {
+            this.reader = new BufferedReader(new FileReader(filePath));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (Exception e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        }
     }
 
     /**
@@ -45,7 +63,7 @@ public class DollToyDAOImpl implements DollToyDAO {
     @Override
     public List<DollToy> getAllToys() {
         List<DollToy> dollToys = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try {
 
             reader.readLine(); // Skip the header
             String line;
@@ -54,7 +72,7 @@ public class DollToyDAOImpl implements DollToyDAO {
                 DollToy dollToy = createDollToy(row);
                 dollToys.add(dollToy);
             }
-
+            reader.close();
             return dollToys;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File not found: " + filePath, e);
@@ -85,6 +103,75 @@ public class DollToyDAOImpl implements DollToyDAO {
                 .recommendedAge(recommendedAge)
                 .gender(gender)
                 .build();
+    }
+
+    /**
+     * Searches for constructive toys in the database based on the provided
+     * category.
+     * 
+     * @param category The category to search for
+     * @throws RuntimeException If an error occurs while accessing or reading the
+     */
+    public List<DollToy> findByCategory(String category) {
+        List<DollToy> dollToys = new ArrayList<>(); // Initialize the list
+        try {
+            reader.reset(); // Reset the reader
+
+            reader.readLine(); // Skip the header
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] row = line.split(DELIMITER);
+                if (row[2].equals(category)) {
+                    DollToy toy = createDollToy(row);
+                    dollToys.add(toy);
+                }
+            }
+
+            reader.close();
+
+            return dollToys;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file: " + filePath, e);
+        }
+    }
+
+    /**
+     * Searches for vehicle toys in the database based on the provided price
+     * range.
+     * 
+     * @param minPrice The minimum price to search for.
+     * @param maxPrice The maximum price to search for.
+     * @throws RuntimeException If an error occurs while accessing or reading the.
+     */
+
+    public List<DollToy> findByPriceRange(double minPrice, double maxPrice) {
+        List<DollToy> dollToys = new ArrayList<>();
+        try {
+            reader.reset(); // Reset the reader
+
+            reader.readLine(); // Skip the header
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] row = line.split(DELIMITER);
+                double price = Double.parseDouble(row[3]);
+                if (price >= minPrice && price <= maxPrice) {
+                    DollToy toy = createDollToy(row);
+                    dollToys.add(toy);
+                }
+            }
+
+            reader.close();
+
+            return dollToys;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file: " + filePath, e);
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.itpu.warehouse.dao.SoftToyDAO;
 import com.itpu.warehouse.entity.SoftToy;
+import com.itpu.warehouse.entity.VehicleToy;
 
 /**
  * Implementation of the SoftToyDAO interface for accessing and manipulating
@@ -18,21 +19,38 @@ public class SoftToyDAOImpl implements SoftToyDAO {
 
     private final String DELIMITER = ","; // Adjust the delimiter as needed
     String filePath = "src/main/resources/soft_toys.csv"; // Adjust the file path with correct extension
+    BufferedReader reader;
 
     /**
-     * Default constructor.
+     * Constructor with default file path.
+     * 
+     * @throws RuntimeException If an error occurs while accessing or reading
      */
     public SoftToyDAOImpl() {
-
+        try {
+            this.reader = new BufferedReader(new FileReader(filePath));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (Exception e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        }
     }
 
     /**
      * Constructor with a custom file path.
      *
      * @param path The file path to load soft toy data from
+     * @throws RuntimeException If an error occurs while accessing or reading the
      */
     public SoftToyDAOImpl(String path) {
         this.filePath = path;
+        try {
+            this.reader = new BufferedReader(new FileReader(filePath));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (Exception e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        }
     }
 
     /**
@@ -45,7 +63,7 @@ public class SoftToyDAOImpl implements SoftToyDAO {
     @Override
     public List<SoftToy> getAllToys() {
         List<SoftToy> softToys = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try {
 
             reader.readLine(); // Skip the header
             String line;
@@ -56,6 +74,7 @@ public class SoftToyDAOImpl implements SoftToyDAO {
                 softToys.add(toy);
 
             }
+            reader.close();
             return softToys;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File not found: " + filePath, e);
@@ -87,6 +106,75 @@ public class SoftToyDAOImpl implements SoftToyDAO {
                 .recommendedAge(recommendedAge)
                 .mass(mass)
                 .build();
+    }
+
+    /**
+     * Searches for constructive toys in the database based on the provided
+     * category.
+     * 
+     * @param category The category to search for
+     * @throws RuntimeException If an error occurs while accessing or reading the
+     */
+    public List<SoftToy> findByCategory(String category) {
+        List<SoftToy> softToys = new ArrayList<>(); // Initialize the list
+        try {
+            reader.reset(); // Reset the reader
+
+            reader.readLine(); // Skip the header
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] row = line.split(DELIMITER);
+                if (row[2].equals(category)) {
+                    SoftToy toy = createSoftToy(row);
+                    softToys.add(toy);
+                }
+            }
+
+            reader.close();
+
+            return softToys;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file: " + filePath, e);
+        }
+    }
+
+    /**
+     * Searches for vehicle toys in the database based on the provided price
+     * range.
+     * 
+     * @param minPrice The minimum price to search for.
+     * @param maxPrice The maximum price to search for.
+     * @throws RuntimeException If an error occurs while accessing or reading the.
+     */
+
+    public List<SoftToy> findByPriceRange(double minPrice, double maxPrice) {
+        List<SoftToy> softToys = new ArrayList<>();
+        try {
+            reader.reset(); // Reset the reader
+
+            reader.readLine(); // Skip the header
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] row = line.split(DELIMITER);
+                double price = Double.parseDouble(row[3]);
+                if (price >= minPrice && price <= maxPrice) {
+                    SoftToy toy = createSoftToy(row);
+                    softToys.add(toy);
+                }
+            }
+
+            reader.close();
+
+            return softToys;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file: " + filePath, e);
+        }
     }
 
     /**

@@ -35,3 +35,8 @@
 > 1. Added functionality to DAOImpl classes for retrieving data from CSV files.
 > 1. Updated CSV files to include additional fields and corrected formatting.
 > 1. Tested all DAOImpl classes to ensure they are working correctly.
+
+> published: 01.05.2024
+>
+> 1. Implemented service layer interfaces and corresponding service classes for each type of toy.
+> 1. Added mock methods findByCategory and findByPriceRange to DAO and implemented them in respective DAOImpl classes.

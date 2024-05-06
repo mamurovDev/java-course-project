@@ -2,6 +2,7 @@ package com.itpu.warehouse.dao.impl;
 
 import com.itpu.warehouse.dao.ConstructiveToyDAO;
 import com.itpu.warehouse.entity.ConstructiveToy;
+import com.itpu.warehouse.entity.VehicleToy;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -17,21 +18,40 @@ import java.io.IOException;
 public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
     private final String DELIMITER = ","; // Adjust the delimiter as needed
     String filePath = "src/main/resources/constructive_toys.csv"; // Adjust the file path with correct extension
+    BufferedReader reader;
 
     /**
-     * Default constructor.
+     * Constructor with the default file path.
+     * 
+     * @throws RuntimeException If an error occurs while accessing or reading the
      */
     public ConstructiveToyDAOImpl() {
 
+        try {
+            this.reader = new BufferedReader(new FileReader(filePath));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (Exception e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        }
     }
 
     /**
      * Constructor with a custom file path.
      *
      * @param filePath The file path to load constructive toy data from
+     * @throws RuntimeException If an error occurs while accessing or reading the
      */
     public ConstructiveToyDAOImpl(String filePath) {
         this.filePath = filePath;
+
+        try {
+            this.reader = new BufferedReader(new FileReader(filePath));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (Exception e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        }
     }
 
     /**
@@ -44,7 +64,7 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
     @Override
     public List<ConstructiveToy> getAllToys() {
         List<ConstructiveToy> constructiveToys = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        try {
 
             reader.readLine(); // Skip the header
 
@@ -54,7 +74,7 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
                 ConstructiveToy toy = createConstructiveToy(row);
                 constructiveToys.add(toy);
             }
-
+            reader.close();
             return constructiveToys;
         } catch (FileNotFoundException e) {
             throw new RuntimeException("File not found" + filePath, e);
@@ -86,6 +106,75 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
                 .recommendedAge(recommendedAge)
                 .material(material)
                 .build();
+    }
+
+    /**
+     * Searches for constructive toys in the database based on the provided
+     * category.
+     * 
+     * @param category The category to search for
+     * @throws RuntimeException If an error occurs while accessing or reading the
+     */
+    public List<ConstructiveToy> findByCategory(String category) {
+        List<ConstructiveToy> constructiveToys = new ArrayList<>(); // Initialize the list
+        try {
+            reader.reset(); // Reset the reader
+
+            reader.readLine(); // Skip the header
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] row = line.split(DELIMITER);
+                if (row[2].equals(category)) {
+                    ConstructiveToy toy = createConstructiveToy(row);
+                    constructiveToys.add(toy);
+                }
+            }
+
+            reader.close();
+
+            return constructiveToys;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file: " + filePath, e);
+        }
+    }
+
+    /**
+     * Searches for vehicle toys in the database based on the provided price
+     * range.
+     * 
+     * @param minPrice The minimum price to search for.
+     * @param maxPrice The maximum price to search for.
+     * @throws RuntimeException If an error occurs while accessing or reading the.
+     */
+
+    public List<ConstructiveToy> findByPriceRange(double minPrice, double maxPrice) {
+        List<ConstructiveToy> constructiveToys = new ArrayList<>();
+        try {
+            reader.reset(); // Reset the reader
+
+            reader.readLine(); // Skip the header
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] row = line.split(DELIMITER);
+                double price = Double.parseDouble(row[3]);
+                if (price >= minPrice && price <= maxPrice) {
+                    ConstructiveToy toy = createConstructiveToy(row);
+                    constructiveToys.add(toy);
+                }
+            }
+
+            reader.close();
+
+            return constructiveToys;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("File not found: " + filePath, e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading file: " + filePath, e);
+        }
     }
 
     /**

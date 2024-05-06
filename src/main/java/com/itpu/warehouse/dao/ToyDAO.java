@@ -24,4 +24,9 @@ public interface ToyDAO<T extends Toy> {
 
     // Method to delete a toy by its ID
     void deleteToy(String id);
+
+    List<T> findByCategory(String category);
+
+    List<T> findByPriceRange(double minPrice, double maxPrice);
+
 }
