@@ -28,5 +28,6 @@ public interface ToyDAO<T extends Toy> {
     List<T> findByCategory(String category);
 
     List<T> findByPriceRange(double minPrice, double maxPrice);
+    
 
 }

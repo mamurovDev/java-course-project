@@ -4,8 +4,9 @@ import java.util.List;
 
 import com.itpu.warehouse.dao.PuzzleToyDAO;
 import com.itpu.warehouse.entity.PuzzleToy;
+import com.itpu.warehouse.service.PuzzleToyService;
 
-public class PuzzleToyServiceImpl {
+public class PuzzleToyServiceImpl implements PuzzleToyService {
     private PuzzleToyDAO puzzleToyDAO; // DAO for accessing and manipulating data of SoftToy objects
 
     /**
@@ -37,5 +38,12 @@ public class PuzzleToyServiceImpl {
      */
     public List<PuzzleToy> findByPriceRange(double minPrice, double maxPrice) {
         return puzzleToyDAO.findByPriceRange(minPrice, maxPrice);
+    }
+
+    /**
+     * Returns a list of all soft toys stored in the database.
+     */
+    public List<PuzzleToy> getAllToys() {
+        return puzzleToyDAO.getAllToys();
     }
 }

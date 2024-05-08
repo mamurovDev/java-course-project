@@ -1,4 +1,5 @@
 package com.itpu.warehouse.utils;
+
 import java.util.Scanner;
 
 /**
@@ -13,7 +14,7 @@ public class UIUtils {
             "clear: Clear all history in console",
             "exit: exit the software"
     };
-    static boolean isExited = false;
+    public static boolean isExited = false;
     final static private String line = "------------------------------------------------------------------------";
     final static private String name = "Nurmuahmmad";
     final static private String email = "nurmuhammad_mamurjonov@student.itpu.uz";

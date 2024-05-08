@@ -3,12 +3,13 @@ package com.itpu.warehouse.service.impl;
 import java.util.List;
 
 import com.itpu.warehouse.dao.ConstructiveToyDAO;
+import com.itpu.warehouse.service.ConstructiveToyService;
 import com.itpu.warehouse.entity.ConstructiveToy;
 
 /**
  * ConstructiveToyServiceImpl
  */
-public class ConstructiveToyServiceImpl {
+public class ConstructiveToyServiceImpl implements ConstructiveToyService {
     private ConstructiveToyDAO constructiveToyDAO; // DAO for accessing and manipulating data of SoftToy objects
 
     /**
@@ -40,5 +41,12 @@ public class ConstructiveToyServiceImpl {
      */
     public List<ConstructiveToy> findByPriceRange(double minPrice, double maxPrice) {
         return constructiveToyDAO.findByPriceRange(minPrice, maxPrice);
+    }
+
+    /**
+     * Returns a list of all soft toys stored in the database.
+     */
+    public List<ConstructiveToy> getAllToys() {
+        return constructiveToyDAO.getAllToys();
     }
 }

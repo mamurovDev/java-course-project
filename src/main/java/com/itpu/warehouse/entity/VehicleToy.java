@@ -89,9 +89,9 @@ public class VehicleToy extends Toy {
      */
     @Override
     public String toString() {
-        return "VehicleToy [id=" + getId() + ", name=" + getName() + ", category="
+        return "VehicleToy {id=" + getId() + ", name=" + getName() + ", category="
                 + getCategory() + ", price=" + getPrice() + ", recommendedAge=" + getRecommendedAge() +
-                ", numberOfWheels=" + numberOfWheels + "]";
+                ", numberOfWheels=" + numberOfWheels + "}";
     }
 
     /**

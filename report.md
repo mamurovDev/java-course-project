@@ -40,3 +40,9 @@
 >
 > 1. Implemented service layer interfaces and corresponding service classes for each type of toy.
 > 1. Added mock methods findByCategory and findByPriceRange to DAO and implemented them in respective DAOImpl classes.
+
+> published: 08.05.2024
+>
+> 1. Refactored service layer 
+> 1. Implemented Controller layer
+> 1. Implemented "list" command to test first steps

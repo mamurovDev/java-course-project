@@ -2,7 +2,6 @@ package com.itpu.warehouse.dao.impl;
 
 import com.itpu.warehouse.dao.DollToyDAO;
 import com.itpu.warehouse.entity.DollToy;
-import com.itpu.warehouse.entity.VehicleToy;
 import com.itpu.warehouse.enums.Gender;
 
 import java.io.BufferedReader;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 public class DollToyDAOImpl implements DollToyDAO {
     private final String DELIMITER = ","; // Adjust the delimiter as needed
     String filePath = "src/main/resources/doll_toys.csv"; // Adjust the file path with correct extension
-    BufferedReader reader;
 
     /**
      * Constructor with default file path.
@@ -27,13 +25,6 @@ public class DollToyDAOImpl implements DollToyDAO {
      * @throws RuntimeException If an error occurs while accessing or reading the
      */
     public DollToyDAOImpl() {
-        try {
-            this.reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        } catch (Exception e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        }
     }
 
     /**
@@ -44,13 +35,6 @@ public class DollToyDAOImpl implements DollToyDAO {
      */
     public DollToyDAOImpl(String filePath) {
         this.filePath = filePath;
-        try {
-            this.reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        } catch (Exception e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        }
     }
 
     /**
@@ -63,7 +47,7 @@ public class DollToyDAOImpl implements DollToyDAO {
     @Override
     public List<DollToy> getAllToys() {
         List<DollToy> dollToys = new ArrayList<>();
-        try {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             reader.readLine(); // Skip the header
             String line;
@@ -114,8 +98,7 @@ public class DollToyDAOImpl implements DollToyDAO {
      */
     public List<DollToy> findByCategory(String category) {
         List<DollToy> dollToys = new ArrayList<>(); // Initialize the list
-        try {
-            reader.reset(); // Reset the reader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             reader.readLine(); // Skip the header
 
@@ -149,8 +132,7 @@ public class DollToyDAOImpl implements DollToyDAO {
 
     public List<DollToy> findByPriceRange(double minPrice, double maxPrice) {
         List<DollToy> dollToys = new ArrayList<>();
-        try {
-            reader.reset(); // Reset the reader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             reader.readLine(); // Skip the header
 

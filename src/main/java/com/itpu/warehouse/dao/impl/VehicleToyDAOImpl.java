@@ -26,13 +26,6 @@ public class VehicleToyDAOImpl implements VehicleToyDAO {
      * 
      */
     public VehicleToyDAOImpl() {
-        try {
-            reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        } catch (Exception e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        }
     }
 
     /**
@@ -43,13 +36,6 @@ public class VehicleToyDAOImpl implements VehicleToyDAO {
      */
     public VehicleToyDAOImpl(String path) {
         this.filePath = path;
-        try {
-            this.reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        } catch (Exception e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        }
     }
 
     /**
@@ -62,7 +48,7 @@ public class VehicleToyDAOImpl implements VehicleToyDAO {
     @Override
     public List<VehicleToy> getAllToys() {
         List<VehicleToy> vehicleToys = new ArrayList<>(); // Initialize the list
-        try {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             reader.readLine(); // Skip the header
 
             String line; // Read the rest of the lines
@@ -112,8 +98,7 @@ public class VehicleToyDAOImpl implements VehicleToyDAO {
      */
     public List<VehicleToy> findByCategory(String category) {
         List<VehicleToy> vehicleToys = new ArrayList<>(); // Initialize the list
-        try {
-            reader.reset(); // Reset the reader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             reader.readLine(); // Skip the header
 
@@ -147,8 +132,7 @@ public class VehicleToyDAOImpl implements VehicleToyDAO {
 
     public List<VehicleToy> findByPriceRange(double minPrice, double maxPrice) {
         List<VehicleToy> vehicleToys = new ArrayList<>();
-        try {
-            reader.reset(); // Reset the reader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             reader.readLine(); // Skip the header
 

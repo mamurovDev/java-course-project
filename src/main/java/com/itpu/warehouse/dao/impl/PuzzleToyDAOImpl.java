@@ -19,7 +19,6 @@ import java.util.List;
 public class PuzzleToyDAOImpl implements PuzzleToyDAO {
     private final String DELIMITER = ","; // Adjust the delimiter as needed
     String filePath = "src/main/resources/puzzle_toys.csv"; // Adjust the file path with correct extension
-    BufferedReader reader;
 
     /**
      * Constructor with the default file path.
@@ -27,13 +26,6 @@ public class PuzzleToyDAOImpl implements PuzzleToyDAO {
      * @throws RuntimeException If an error occurs while accessing or reading the
      */
     public PuzzleToyDAOImpl() {
-        try {
-            this.reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        } catch (Exception e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        }
     }
 
     /**
@@ -44,13 +36,6 @@ public class PuzzleToyDAOImpl implements PuzzleToyDAO {
      */
     public PuzzleToyDAOImpl(String filePath) {
         this.filePath = filePath;
-        try {
-            this.reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        } catch (Exception e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        }
     }
 
     /**
@@ -114,8 +99,7 @@ public class PuzzleToyDAOImpl implements PuzzleToyDAO {
      */
     public List<PuzzleToy> findByCategory(String category) {
         List<PuzzleToy> puzzleToys = new ArrayList<>(); // Initialize the list
-        try {
-            reader.reset(); // Reset the reader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             reader.readLine(); // Skip the header
 
@@ -149,7 +133,7 @@ public class PuzzleToyDAOImpl implements PuzzleToyDAO {
 
     public List<PuzzleToy> findByPriceRange(double minPrice, double maxPrice) {
         List<PuzzleToy> puzzleToys = new ArrayList<>();
-        try {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             reader.reset(); // Reset the reader
 
             reader.readLine(); // Skip the header

@@ -4,12 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.List;
 import java.util.ArrayList;
 
 import com.itpu.warehouse.dao.SoftToyDAO;
 import com.itpu.warehouse.entity.SoftToy;
-import com.itpu.warehouse.entity.VehicleToy;
 
 /**
  * Implementation of the SoftToyDAO interface for accessing and manipulating
@@ -19,7 +19,6 @@ public class SoftToyDAOImpl implements SoftToyDAO {
 
     private final String DELIMITER = ","; // Adjust the delimiter as needed
     String filePath = "src/main/resources/soft_toys.csv"; // Adjust the file path with correct extension
-    BufferedReader reader;
 
     /**
      * Constructor with default file path.
@@ -27,13 +26,6 @@ public class SoftToyDAOImpl implements SoftToyDAO {
      * @throws RuntimeException If an error occurs while accessing or reading
      */
     public SoftToyDAOImpl() {
-        try {
-            this.reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        } catch (Exception e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        }
     }
 
     /**
@@ -44,13 +36,6 @@ public class SoftToyDAOImpl implements SoftToyDAO {
      */
     public SoftToyDAOImpl(String path) {
         this.filePath = path;
-        try {
-            this.reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        } catch (Exception e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        }
     }
 
     /**
@@ -63,7 +48,7 @@ public class SoftToyDAOImpl implements SoftToyDAO {
     @Override
     public List<SoftToy> getAllToys() {
         List<SoftToy> softToys = new ArrayList<>();
-        try {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             reader.readLine(); // Skip the header
             String line;
@@ -117,8 +102,7 @@ public class SoftToyDAOImpl implements SoftToyDAO {
      */
     public List<SoftToy> findByCategory(String category) {
         List<SoftToy> softToys = new ArrayList<>(); // Initialize the list
-        try {
-            reader.reset(); // Reset the reader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             reader.readLine(); // Skip the header
 
@@ -152,8 +136,7 @@ public class SoftToyDAOImpl implements SoftToyDAO {
 
     public List<SoftToy> findByPriceRange(double minPrice, double maxPrice) {
         List<SoftToy> softToys = new ArrayList<>();
-        try {
-            reader.reset(); // Reset the reader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             reader.readLine(); // Skip the header
 

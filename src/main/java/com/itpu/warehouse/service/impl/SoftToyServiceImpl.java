@@ -41,4 +41,13 @@ public class SoftToyServiceImpl implements SoftToyService {
     public List<SoftToy> findByPriceRange(double minPrice, double maxPrice) {
         return softToyDAO.findByPriceRange(minPrice, maxPrice);
     }
+
+    /**
+     * Returns a list of all soft toys stored in the database.
+     * 
+     * @return A list of all soft toys
+     */
+    public List<SoftToy> getAllToys() {
+        return softToyDAO.getAllToys();
+    }
 }

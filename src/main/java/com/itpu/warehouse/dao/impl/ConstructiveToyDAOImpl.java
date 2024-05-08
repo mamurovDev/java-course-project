@@ -2,7 +2,6 @@ package com.itpu.warehouse.dao.impl;
 
 import com.itpu.warehouse.dao.ConstructiveToyDAO;
 import com.itpu.warehouse.entity.ConstructiveToy;
-import com.itpu.warehouse.entity.VehicleToy;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -18,7 +17,6 @@ import java.io.IOException;
 public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
     private final String DELIMITER = ","; // Adjust the delimiter as needed
     String filePath = "src/main/resources/constructive_toys.csv"; // Adjust the file path with correct extension
-    BufferedReader reader;
 
     /**
      * Constructor with the default file path.
@@ -27,13 +25,6 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
      */
     public ConstructiveToyDAOImpl() {
 
-        try {
-            this.reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        } catch (Exception e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        }
     }
 
     /**
@@ -42,16 +33,9 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
      * @param filePath The file path to load constructive toy data from
      * @throws RuntimeException If an error occurs while accessing or reading the
      */
+
     public ConstructiveToyDAOImpl(String filePath) {
         this.filePath = filePath;
-
-        try {
-            this.reader = new BufferedReader(new FileReader(filePath));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        } catch (Exception e) {
-            throw new RuntimeException("File not found: " + filePath, e);
-        }
     }
 
     /**
@@ -64,8 +48,7 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
     @Override
     public List<ConstructiveToy> getAllToys() {
         List<ConstructiveToy> constructiveToys = new ArrayList<>();
-        try {
-
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             reader.readLine(); // Skip the header
 
             String line; // Read the rest of the lines
@@ -117,8 +100,7 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
      */
     public List<ConstructiveToy> findByCategory(String category) {
         List<ConstructiveToy> constructiveToys = new ArrayList<>(); // Initialize the list
-        try {
-            reader.reset(); // Reset the reader
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             reader.readLine(); // Skip the header
 
@@ -152,7 +134,7 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
 
     public List<ConstructiveToy> findByPriceRange(double minPrice, double maxPrice) {
         List<ConstructiveToy> constructiveToys = new ArrayList<>();
-        try {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             reader.reset(); // Reset the reader
 
             reader.readLine(); // Skip the header

@@ -7,4 +7,6 @@ public interface ToyService<T extends Toy> {
     List<T> findByCategory(String category);
 
     List<T> findByPriceRange(double minPrice, double maxPrice);
+
+    List<T> getAllToys();
 }
