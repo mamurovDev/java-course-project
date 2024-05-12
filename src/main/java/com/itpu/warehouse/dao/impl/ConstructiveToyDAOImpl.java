@@ -135,7 +135,6 @@ public class ConstructiveToyDAOImpl implements ConstructiveToyDAO {
     public List<ConstructiveToy> findByPriceRange(double minPrice, double maxPrice) {
         List<ConstructiveToy> constructiveToys = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            reader.reset(); // Reset the reader
 
             reader.readLine(); // Skip the header
 

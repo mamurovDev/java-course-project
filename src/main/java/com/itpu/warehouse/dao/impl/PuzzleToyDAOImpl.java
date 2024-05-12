@@ -1,9 +1,7 @@
 package com.itpu.warehouse.dao.impl;
 
 import com.itpu.warehouse.dao.PuzzleToyDAO;
-import com.itpu.warehouse.entity.ConstructiveToy;
 import com.itpu.warehouse.entity.PuzzleToy;
-import com.itpu.warehouse.entity.VehicleToy;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -134,7 +132,6 @@ public class PuzzleToyDAOImpl implements PuzzleToyDAO {
     public List<PuzzleToy> findByPriceRange(double minPrice, double maxPrice) {
         List<PuzzleToy> puzzleToys = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            reader.reset(); // Reset the reader
 
             reader.readLine(); // Skip the header
 

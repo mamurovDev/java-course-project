@@ -12,21 +12,22 @@ public class UIUtils {
             "list: Show all products",
             "help: Show all available commands",
             "clear: Clear all history in console",
-            "exit: exit the software"
+            "exit: exit the software",
+            "search: search specific product",
     };
     public static boolean isExited = false;
-    final static private String line = "------------------------------------------------------------------------";
-    final static private String name = "Nurmuahmmad";
-    final static private String email = "nurmuhammad_mamurjonov@student.itpu.uz";
+    final static private String LINE = "------------------------------------------------------------------------";
+    final static private String NAME = "Nurmuahmmad";
+    final static private String EMAIL = "nurmuhammad_mamurjonov@student.itpu.uz";
 
     public static void showBrand() {
         System.out.println(Colors.applyStyle(ColorsEnum.green, "\n Toys Warehouse", true));
-        System.out.println(Colors.applyStyle(ColorsEnum.white, line, false));
+        System.out.println(Colors.applyStyle(ColorsEnum.white, LINE, false));
         System.out
                 .println(Colors.applyStyle(ColorsEnum.green,
-                        "By: " + name + " | " + email, false));
+                        "By: " + NAME + " | " + EMAIL, false));
         System.out.println(Colors.applyStyle(ColorsEnum.purple, "version: 1.0 | create date: 29.03.2024", false));
-        System.out.println(Colors.applyStyle(ColorsEnum.white, line + "\n", false));
+        System.out.println(Colors.applyStyle(ColorsEnum.white, LINE + "\n", false));
 
     }
 
@@ -35,7 +36,7 @@ public class UIUtils {
         for (String command : commands) {
             System.out.println("   * " + command);
         }
-        System.out.println(Colors.applyStyle(ColorsEnum.white, line + "\n", false));
+        System.out.println(Colors.applyStyle(ColorsEnum.white, LINE + "\n", false));
     }
 
     public static String waitForCommand() {

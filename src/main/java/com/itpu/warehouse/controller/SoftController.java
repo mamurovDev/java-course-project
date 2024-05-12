@@ -1,6 +1,10 @@
 package com.itpu.warehouse.controller;
 
+import java.util.List;
+
 import com.itpu.warehouse.service.SoftToyService;
+import com.itpu.warehouse.entity.SoftToy;
+import com.itpu.warehouse.entity.VehicleToy;
 
 public class SoftController implements ToyController {
     private final SoftToyService softToyService;
@@ -13,11 +17,12 @@ public class SoftController implements ToyController {
      * Get all soft toys
      */
     @Override
-    public void getAllToys() {
+    public List<SoftToy> getAllToys() {
         try {
-            softToyService.getAllToys().forEach(System.out::println);
+            return softToyService.getAllToys();
         } catch (Exception e) {
-            System.out.println("Error while fetching all soft toys: " + e.getMessage());
+            System.out.println("Error while fetching all vehicle toys: " + e.getMessage());
+            return List.of();
         }
     }
 
@@ -25,23 +30,25 @@ public class SoftController implements ToyController {
      * Get soft toys by category
      */
     @Override
-    public void findByCategory(String category) {
+    public List<SoftToy> findByCategory(String category) {
         try {
-            softToyService.findByCategory(category).forEach(System.out::println);
+            return softToyService.findByCategory(category);
         } catch (Exception e) {
             System.out.println("Error while finding soft toys by category: " + e.getMessage());
+            return List.of();
         }
     }
 
     /**
      * Get soft toys by price range
      */
-    @Override
-    public void findByPriceRange(double minPrice, double maxPrice) {
+
+    public List<SoftToy> findByPriceRange(double minPrice, double maxPrice) {
         try {
-            softToyService.findByPriceRange(minPrice, maxPrice).forEach(System.out::println);
+            return softToyService.findByPriceRange(minPrice, maxPrice);
         } catch (Exception e) {
             System.out.println("Error while finding soft toys by price range: " + e.getMessage());
+            return List.of();
         }
     }
 }

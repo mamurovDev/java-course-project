@@ -1,5 +1,9 @@
 package com.itpu.warehouse.controller;
 
+import java.util.List;
+
+import com.itpu.warehouse.entity.Toy;
+import com.itpu.warehouse.entity.VehicleToy;
 import com.itpu.warehouse.service.VehicleToyService;
 
 public class VehicleController implements ToyController {
@@ -14,11 +18,12 @@ public class VehicleController implements ToyController {
      * Get all vehicle toys
      */
     @Override
-    public void getAllToys() {
+    public List<VehicleToy> getAllToys() {
         try {
-            vehicleToyService.getAllToys().forEach(System.out::println);
+            return vehicleToyService.getAllToys();
         } catch (Exception e) {
             System.out.println("Error while fetching all vehicle toys: " + e.getMessage());
+            return List.of();
         }
     }
 
@@ -28,11 +33,12 @@ public class VehicleController implements ToyController {
      * @param category The category to search for
      */
     @Override
-    public void findByCategory(String category) throws ControllerException {
+    public List<VehicleToy> findByCategory(String category) {
         try {
-            vehicleToyService.findByCategory(category).forEach(System.out::println);
+            return vehicleToyService.findByCategory(category);
         } catch (Exception e) {
             System.out.println("Error while finding vehicle toys by category: " + e.getMessage());
+            return List.of();
         }
     }
 
@@ -43,11 +49,12 @@ public class VehicleController implements ToyController {
      * @param maxPrice maximum price to search for.
      */
     @Override
-    public void findByPriceRange(double minPrice, double maxPrice) {
+    public List<VehicleToy> findByPriceRange(double minPrice, double maxPrice) {
         try {
-            vehicleToyService.findByPriceRange(minPrice, maxPrice).forEach(System.out::println);
+            return vehicleToyService.findByPriceRange(minPrice, maxPrice);
         } catch (Exception e) {
             System.out.println("Error while finding vehicle toys by price range: " + e.getMessage());
+            return List.of();
         }
     }
 }

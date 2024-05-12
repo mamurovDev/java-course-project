@@ -2,6 +2,11 @@ package com.itpu.warehouse.controller;
 
 import com.itpu.warehouse.service.PuzzleToyService;
 
+import java.util.List;
+
+import com.itpu.warehouse.entity.PuzzleToy;
+import com.itpu.warehouse.entity.VehicleToy;
+
 public class PuzzleController implements ToyController {
     private final PuzzleToyService puzzleToyService;
 
@@ -13,11 +18,12 @@ public class PuzzleController implements ToyController {
      * Get all puzzle toys
      */
     @Override
-    public void getAllToys() {
+    public List<PuzzleToy> getAllToys() {
         try {
-            puzzleToyService.getAllToys().forEach(System.out::println);
+            return puzzleToyService.getAllToys();
         } catch (Exception e) {
-            System.out.println("Error while fetching all puzzle toys: " + e.getMessage());
+            System.out.println("Error while fetching all vehicle toys: " + e.getMessage());
+            return List.of();
         }
     }
 
@@ -25,11 +31,12 @@ public class PuzzleController implements ToyController {
      * Get puzzle toys by category
      */
     @Override
-    public void findByCategory(String category) {
+    public List<PuzzleToy> findByCategory(String category) {
         try {
-            puzzleToyService.findByCategory(category).forEach(System.out::println);
+            return puzzleToyService.findByCategory(category);
         } catch (Exception e) {
             System.out.println("Error while finding puzzle toys by category: " + e.getMessage());
+            return List.of();
         }
     }
 
@@ -37,11 +44,12 @@ public class PuzzleController implements ToyController {
      * Get puzzle toys by price range
      */
     @Override
-    public void findByPriceRange(double minPrice, double maxPrice) {
+    public List<PuzzleToy> findByPriceRange(double minPrice, double maxPrice) {
         try {
-            puzzleToyService.findByPriceRange(minPrice, maxPrice).forEach(System.out::println);
+            return puzzleToyService.findByPriceRange(minPrice, maxPrice);
         } catch (Exception e) {
             System.out.println("Error while finding puzzle toys by price range: " + e.getMessage());
+            return List.of();
         }
     }
 

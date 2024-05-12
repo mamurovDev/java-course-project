@@ -1,5 +1,9 @@
 package com.itpu.warehouse.controller;
 
+import java.util.List;
+
+import com.itpu.warehouse.entity.DollToy;
+import com.itpu.warehouse.entity.VehicleToy;
 import com.itpu.warehouse.service.DollToyService;
 
 public class DollController implements ToyController {
@@ -12,34 +16,37 @@ public class DollController implements ToyController {
     /**
      * Get all doll toys
      */
-    public void getAllToys() {
+    @Override
+    public List<DollToy> getAllToys() {
         try {
-            dollToyService.getAllToys().forEach(System.out::println);
-
+            return dollToyService.getAllToys();
         } catch (Exception e) {
-            System.out.println("Error while fetching all doll toys: " + e.getMessage());
+            System.out.println("Error while fetching all vehicle toys: " + e.getMessage());
+            return List.of();
         }
     }
 
     /**
      * Get doll toys by category
      */
-    public void findByCategory(String category) {
+    public List<DollToy> findByCategory(String category) {
         try {
-            dollToyService.findByCategory(category).forEach(System.out::println);
+            return dollToyService.findByCategory(category);
         } catch (Exception e) {
             System.out.println("Error while finding doll toys by category: " + e.getMessage());
+            return List.of();
         }
     }
 
     /**
      * Get doll toys by price range
      */
-    public void findByPriceRange(double minPrice, double maxPrice) {
+    public List<DollToy> findByPriceRange(double minPrice, double maxPrice) {
         try {
-            dollToyService.findByPriceRange(minPrice, maxPrice).forEach(System.out::println);
+            return dollToyService.findByPriceRange(minPrice, maxPrice);
         } catch (Exception e) {
             System.out.println("Error while finding doll toys by price range: " + e.getMessage());
+            return List.of();
         }
     }
 }
