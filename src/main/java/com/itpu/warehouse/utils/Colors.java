@@ -1,8 +1,6 @@
 package com.itpu.warehouse.utils;
 
-enum ColorsEnum {
-    green, purple, white
-}
+import com.itpu.warehouse.enums.ColorsEnum;
 
 /**
  * InnerColors

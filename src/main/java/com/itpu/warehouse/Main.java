@@ -13,9 +13,11 @@ import com.itpu.warehouse.controller.PuzzleController;
 import com.itpu.warehouse.controller.SoftController;
 import com.itpu.warehouse.controller.VehicleController;
 import com.itpu.warehouse.service.impl.*;
+import com.itpu.warehouse.utils.Colors;
 import com.itpu.warehouse.utils.UIUtils;
 import com.itpu.warehouse.dao.impl.*;
 import com.itpu.warehouse.entity.*;
+import com.itpu.warehouse.enums.ColorsEnum;
 
 public class Main implements Serializable {
 
@@ -76,11 +78,12 @@ public class Main implements Serializable {
     public static void printToyTable(List<? extends Toy> toys, String title) {
         // Print table header
         System.out.println("\n" + title + " toys");
-        System.out.println("ID\tName\t\t\t\t\tCategory\tPrice\tRecommended Age");
+        System.out.println(
+                Colors.applyStyle(ColorsEnum.white, "ID\tName\t\t\t\tCategory\t\tPrice\tRecommended Age", true));
 
         // Iterate over each toy and print its details
         for (Toy toy : toys) {
-            System.out.printf("%s\t%s\t\t%s\t\t%.2f\t%d\n",
+            System.out.printf("%-3s\t%-30s\t%-20s\t$%.2f\t%d\n",
                     toy.getId(), toy.getName(), toy.getCategory(), toy.getPrice(), toy.getRecommendedAge());
         }
     }

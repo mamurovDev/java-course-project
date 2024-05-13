@@ -1,6 +1,7 @@
 package com.itpu.warehouse.utils;
 
 import java.util.Scanner;
+import com.itpu.warehouse.enums.ColorsEnum;
 
 /**
  * InnerUIUtils
