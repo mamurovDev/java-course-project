@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Iterator;
 import com.itpu.warehouse.controller.ConstructiveController;
 import com.itpu.warehouse.controller.DollController;
 import com.itpu.warehouse.controller.PuzzleController;
@@ -45,6 +45,9 @@ public class Main implements Serializable {
                         UIUtils.showCommands();
                         break;
                     // Add more cases for other commands if needed
+                    case "search":
+                        Main.getParams();
+                        break;
                     default:
                         // Handle invalid command
                         System.out.println("Invalid command. Type 'help' to see available commands.");
@@ -77,24 +80,33 @@ public class Main implements Serializable {
 
     public static void printToyTable(List<? extends Toy> toys, String title) {
         // Print table header
-        System.out.println("\n" + title + " toys");
-        System.out.println(
-                Colors.applyStyle(ColorsEnum.white, "ID\tName\t\t\t\tCategory\t\tPrice\tRecommended Age", true));
+        if (toys.size() > 0) {
+            System.out.println("\n" + title);
+            System.out.println(
+                    Colors.applyStyle(ColorsEnum.white, "ID\tName\t\t\t\tCategory\t\tPrice\tRecommended Age", true));
 
-        // Iterate over each toy and print its details
-        for (Toy toy : toys) {
-            System.out.printf("%-3s\t%-30s\t%-20s\t$%.2f\t%d\n",
-                    toy.getId(), toy.getName(), toy.getCategory(), toy.getPrice(), toy.getRecommendedAge());
+            // Iterate over each toy and print its details
+            for (Toy toy : toys) {
+                System.out.printf("%-3s\t%-30s\t%-20s\t$%.2f\t%d\n",
+                        toy.getId(), toy.getName(), toy.getCategory(), toy.getPrice(), toy.getRecommendedAge());
+            }
         }
     }
 
     public static void getParams() {
         Scanner scanner = new Scanner(System.in);
-        while (!UIUtils.isExited) {
-            System.out.println("Enter parameters, separate all parameters with ';'");
+        while (true) {
+            System.out.println("\nEnter parameters, separate all parameters with ';'");
             System.out.println("For example:");
-            System.out.println("category=puzzle;minPrice=100;maxPrice=200");
+            System.out.println("type=vehicle;category=Vehicle;recommendedAge=3;minPrice=10;maxPrice=20;name=RC Boat\n");
             String searchingCommand = scanner.nextLine();
+
+            // Check if the user wants to exit
+            if (searchingCommand.equalsIgnoreCase("main")) {
+                System.out.println("You returned to main menu.");
+                UIUtils.waitForCommand();
+                break;
+            }
 
             // Split the input into individual parameters
             String[] params = searchingCommand.split(";");
@@ -119,40 +131,102 @@ public class Main implements Serializable {
             Main.processParams(map);
         }
         scanner.close();
+
     }
 
     public static void processParams(Map<String, String> paramMap) {
-        List<? extends Toy> list = new ArrayList<>();
-        String category = paramMap.get("category");
-        if (category != null) { // Check if category is not null
-            String minPrice = paramMap.get("minPrice");
-            String maxPrice = paramMap.get("maxPrice");
-            switch (category) {
-                case "puzzle":
-                    // list = puzzleController.findByPriceRange(Double.parseDouble(minPrice),
-                    // Double.parseDouble(maxPrice));
-                    break;
-                case "soft":
-                    list = softController.findByPriceRange(Double.parseDouble(minPrice), Double.parseDouble(maxPrice));
-                    break;
-                case "vehicle":
-                    list = vehicleController.findByPriceRange(Double.parseDouble(minPrice),
-                            Double.parseDouble(maxPrice));
+        List<List<? extends Toy>> list = new ArrayList<>();
+        if (!paramMap.containsKey("type")) {
+            list.add(constructiveController.getAllToys());
+            list.add(dollController.getAllToys());
+            list.add(puzzleController.getAllToys());
+            list.add(softController.getAllToys());
+            list.add(vehicleController.getAllToys());
+        } else {
+            switch (paramMap.get("type").toLowerCase()) {
+                case "constructive":
+                    list.add(constructiveController.getAllToys());
                     break;
                 case "doll":
-                    list = dollController.findByPriceRange(Double.parseDouble(minPrice), Double.parseDouble(maxPrice));
+                    list.add(dollController.getAllToys());
                     break;
-                case "constructive":
-                    list = constructiveController.findByPriceRange(Double.parseDouble(minPrice),
-                            Double.parseDouble(maxPrice));
+                case "puzzle":
+                    list.add(puzzleController.getAllToys());
+                    break;
+                case "soft":
+                    list.add(softController.getAllToys());
+                    break;
+                case "vehicle":
+                    list.add(vehicleController.getAllToys());
                     break;
                 default:
-                    break;
+                    // Handle invalid type
+                    System.out.println("Invalid type: " + paramMap.get("type"));
+                    return;
+            }
+        }
+        if (paramMap.containsKey("category")) {
+            Iterator<List<? extends Toy>> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                List<? extends Toy> toys = iterator.next();
+                Iterator<? extends Toy> toyIterator = toys.iterator();
+                while (toyIterator.hasNext()) {
+                    Toy toy = toyIterator.next();
+                    if (!toy.getCategory().toLowerCase().equals(paramMap.get("category").toLowerCase())) {
+                        toyIterator.remove();
+                    }
+                }
             }
         } else {
-            System.out.println("Category is not specified.");
+            list.add(constructiveController.getAllToys());
+            list.add(dollController.getAllToys());
+            list.add(puzzleController.getAllToys());
+            list.add(softController.getAllToys());
+            list.add(vehicleController.getAllToys());
         }
-        System.out.println(list);
+        if (paramMap.containsKey("recommendedAge")) {
+            Iterator<List<? extends Toy>> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                List<? extends Toy> toys = iterator.next();
+                Iterator<? extends Toy> toyIterator = toys.iterator();
+                while (toyIterator.hasNext()) {
+                    Toy toy = toyIterator.next();
+                    if (toy.getRecommendedAge() != Integer.parseInt(paramMap.get("recommendedAge"))) {
+                        toyIterator.remove();
+                    }
+                }
+            }
+        }
+        if (paramMap.containsKey("minPrice") && paramMap.containsKey("maxPrice")) {
+            Iterator<List<? extends Toy>> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                List<? extends Toy> toys = iterator.next();
+                Iterator<? extends Toy> toyIterator = toys.iterator();
+                while (toyIterator.hasNext()) {
+                    Toy toy = toyIterator.next();
+                    if (toy.getPrice() < Double.parseDouble(paramMap.get("minPrice"))
+                            || toy.getPrice() > Double.parseDouble(paramMap.get("maxPrice"))) {
+                        toyIterator.remove();
+                    }
+                }
+            }
+        }
+        if (paramMap.containsKey("name")) {
+            Iterator<List<? extends Toy>> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                List<? extends Toy> toys = iterator.next();
+                Iterator<? extends Toy> toyIterator = toys.iterator();
+                while (toyIterator.hasNext()) {
+                    Toy toy = toyIterator.next();
+                    if (!toy.getName().toLowerCase().equals(paramMap.get("name").toLowerCase())) {
+                        toyIterator.remove();
+                    }
+                }
+            }
+        }
+
+        Main.printToyTable(list.get(0), "Search result");
+
     }
 
 }

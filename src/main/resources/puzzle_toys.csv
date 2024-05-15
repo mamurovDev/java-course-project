@@ -1,11 +1,11 @@
 id,name,category,price,recommendedAge,difficulty
-1,Wooden Jigsaw Puzzle,Puzzle,15.99,8+,Medium
-2,Jigsaw Puzzle 1000 Pieces,Puzzle,12.99,12+,Hard
-3,3D Puzzle Model,Puzzle,20.49,10+,Medium
-4,Floor Puzzle for Kids,Puzzle,9.99,3+,Easy
-5,Adult Jigsaw Puzzle,Puzzle,18.75,18+,Hard
-6,Children's Puzzle Set,Puzzle,14.50,5+,Easy
-7,Brain Teaser Puzzle,Puzzle,8.99,14+,Hard
-8,Pattern Puzzle,Puzzle,11.25,10+,Medium
-9,Scenic Jigsaw Puzzle,Puzzle,22.99,8+,Medium
-10,Disney Puzzle,Puzzle,19.75,6+,Easy
+1,Wooden Jigsaw Puzzle,Wooden,15.99,8+,Medium
+2,Jigsaw Puzzle 1000 Pieces,Large Piece,12.99,12+,Hard
+3,3D Puzzle Model,3D Model,20.49,10+,Medium
+4,Floor Puzzle for Kids,Floor,9.99,3+,Easy
+5,Adult Jigsaw Puzzle,Adult,18.75,18+,Hard
+6,Children's Puzzle Set,Children's,14.50,5+,Easy
+7,Brain Teaser Puzzle,Brain Teaser,8.99,14+,Hard
+8,Pattern Puzzle,Pattern,11.25,10+,Medium
+9,Scenic Jigsaw Puzzle,Scenic,22.99,8+,Medium
+10,Disney Puzzle,Disney,19.75,6+,Easy

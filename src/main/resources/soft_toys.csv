@@ -1,11 +1,11 @@
 id,name,category,price,recommendedAge,mass
-1,Stuffed Bear,Soft Toy,12.99,3,200
-2,Plush Bunny,Soft Toy,9.50,2,150
-3,Cuddly Elephant,Soft Toy,15.99,4,300
-4,Soft Teddy Bear,Soft Toy,8.75,2,180
-5,Plush Dog,Soft Toy,11.99,3,220
-6,Cute Kitty Plush,Soft Toy,7.99,1,120
-7,Furry Panda Toy,Soft Toy,14.50,3,250
-8,Fluffy Lamb Plush,Soft Toy,10.25,2,190
-9,Squishy Penguin,Soft Toy,6.99,1,100
-10,Fuzzy Monkey Plush,Soft Toy,12.49,3,210
+1,Stuffed Bear,Bear,12.99,3,200
+2,Plush Bunny,Bunny,9.50,2,150
+3,Cuddly Elephant,Elephant,15.99,4,300
+4,Soft Teddy Bear,Teddy Bear,8.75,2,180
+5,Plush Dog,Dog,11.99,3,220
+6,Cute Kitty Plush,Cat,7.99,1,120
+7,Furry Panda Toy,Panda,14.50,3,250
+8,Fluffy Lamb Plush,Lamb,10.25,2,190
+9,Squishy Penguin,Penguin,6.99,1,100
+10,Fuzzy Monkey Plush,Monkey,12.49,3,210

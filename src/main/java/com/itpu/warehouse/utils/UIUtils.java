@@ -60,7 +60,7 @@ public class UIUtils {
                     UIUtils.showCommands();
                     break;
                 default:
-                    return currentCommand;
+                    return currentCommand.toLowerCase();
             }
         }
 

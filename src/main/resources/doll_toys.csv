@@ -1,11 +1,11 @@
 id,name,category,price,recommendedAge,gender
-1,Barbie Doll,Doll,19.99,6,FEMALE
-2,American Girl Doll,Doll,34.99,7,FEMALE
-3,Baby Doll,Doll,14.99,5,FEMALE
-4,Rag Doll,Doll,12.75,6,FEMALE
-5,Princess Doll,Doll,24.99,8,FEMALE
-6,Disney Princess Doll,Doll,29.99,7,FEMALE
-7,Fashion Doll,Doll,9.99,5,FEMALE
-8,Baby Alive Doll,Doll,27.50,6,FEMALE
-9,Monster High Doll,Doll,16.75,8,FEMALE
-10,Bratz Doll,Doll,21.99,6,FEMALE
+1,Barbie Doll,Fashion,19.99,6,FEMALE
+2,American Girl Doll,Collector,34.99,7,FEMALE
+3,Baby Doll,Infant,14.99,5,FEMALE
+4,Rag Doll,Cloth,12.75,6,FEMALE
+5,Princess Doll,Fairy Tale,24.99,8,FEMALE
+6,Disney Princess Doll,Character,29.99,7,FEMALE
+7,Fashion Doll,Stylish,9.99,5,FEMALE
+8,Baby Alive Doll,Interactive,27.50,6,FEMALE
+9,Monster High Doll,Gothic,16.75,8,FEMALE
+10,Bratz Doll,Trendy,21.99,6,FEMALE
