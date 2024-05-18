@@ -7,11 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
-import com.itpu.warehouse.controller.ConstructiveController;
-import com.itpu.warehouse.controller.DollController;
-import com.itpu.warehouse.controller.PuzzleController;
-import com.itpu.warehouse.controller.SoftController;
-import com.itpu.warehouse.controller.VehicleController;
+import com.itpu.warehouse.controller.*;
 import com.itpu.warehouse.service.impl.*;
 import com.itpu.warehouse.utils.Colors;
 import com.itpu.warehouse.utils.UIUtils;
@@ -20,6 +16,17 @@ import com.itpu.warehouse.entity.*;
 import com.itpu.warehouse.enums.ColorsEnum;
 
 public class Main implements Serializable {
+
+    private static final ConstructiveController constructiveController = new ConstructiveController(
+            new ConstructiveToyServiceImpl(new ConstructiveToyDAOImpl()));
+    private static final DollController dollController = new DollController(
+            new DollToyServiceImpl(new DollToyDAOImpl()));
+    private static final PuzzleController puzzleController = new PuzzleController(
+            new PuzzleToyServiceImpl(new PuzzleToyDAOImpl()));
+    private static final SoftController softController = new SoftController(
+            new SoftToyServiceImpl(new SoftToyDAOImpl()));
+    private static final VehicleController vehicleController = new VehicleController(
+            new VehicleToyServiceImpl(new VehicleToyDAOImpl()));
 
     public static void main(String[] args) {
         // Show the application brand information
@@ -35,24 +42,7 @@ public class Main implements Serializable {
 
             // Process the user command
             if (command != null) {
-                switch (command) {
-                    case "list":
-                        // Show all products
-                        Main.listAllToys();
-                        break;
-                    case "help":
-                        // Show available commands
-                        UIUtils.showCommands();
-                        break;
-                    // Add more cases for other commands if needed
-                    case "search":
-                        Main.getParams();
-                        break;
-                    default:
-                        // Handle invalid command
-                        System.out.println("Invalid command. Type 'help' to see available commands.");
-                        break;
-                }
+                processCommand(command);
             }
         }
 
@@ -60,40 +50,52 @@ public class Main implements Serializable {
         System.out.println("Exiting the application.");
     }
 
-    static ConstructiveController constructiveController = new ConstructiveController(
-            new ConstructiveToyServiceImpl(new ConstructiveToyDAOImpl()));
-    static DollController dollController = new DollController(new DollToyServiceImpl(new DollToyDAOImpl()));
-    static PuzzleController puzzleController = new PuzzleController(new PuzzleToyServiceImpl(new PuzzleToyDAOImpl()));
-    static SoftController softController = new SoftController(new SoftToyServiceImpl(new SoftToyDAOImpl()));
-    static VehicleController vehicleController = new VehicleController(
-            new VehicleToyServiceImpl(new VehicleToyDAOImpl()));
-
-    public static void listAllToys() {
-
-        Main.printToyTable(dollController.getAllToys(), "Doll");
-        Main.printToyTable(constructiveController.getAllToys(), "Constructive");
-        Main.printToyTable(puzzleController.getAllToys(), "Puzzle");
-        Main.printToyTable(softController.getAllToys(), "Soft");
-        Main.printToyTable(vehicleController.getAllToys(), "Vehicle");
-
-    }
-
-    public static void printToyTable(List<? extends Toy> toys, String title) {
-        // Print table header
-        if (toys.size() > 0) {
-            System.out.println("\n" + title);
-            System.out.println(
-                    Colors.applyStyle(ColorsEnum.white, "ID\tName\t\t\t\tCategory\t\tPrice\tRecommended Age", true));
-
-            // Iterate over each toy and print its details
-            for (Toy toy : toys) {
-                System.out.printf("%-3s\t%-30s\t%-20s\t$%.2f\t%d\n",
-                        toy.getId(), toy.getName(), toy.getCategory(), toy.getPrice(), toy.getRecommendedAge());
-            }
+    private static void processCommand(String command) {
+        switch (command) {
+            case "list":
+                // Show all products
+                listAllToys();
+                break;
+            case "help":
+                // Show available commands
+                UIUtils.showCommands();
+                break;
+            case "search":
+                getParams();
+                break;
+            default:
+                // Handle invalid command
+                System.out.println("Invalid command. Type 'help' to see available commands.");
+                break;
         }
     }
 
-    public static void getParams() {
+    private static void listAllToys() {
+        printToyTable(dollController.getAllToys(), "Doll");
+        printToyTable(constructiveController.getAllToys(), "Constructive");
+        printToyTable(puzzleController.getAllToys(), "Puzzle");
+        printToyTable(softController.getAllToys(), "Soft");
+        printToyTable(vehicleController.getAllToys(), "Vehicle");
+    }
+
+    private static void printToyTable(List<? extends Toy> toys, String title) {
+        if (toys.isEmpty()) {
+            return;
+        }
+
+        // Print table header
+        System.out.println("\n" + title);
+        System.out.println(
+                Colors.applyStyle(ColorsEnum.white, "ID\tName\t\t\t\tCategory\t\tPrice\tRecommended Age", true));
+
+        // Iterate over each toy and print its details
+        for (Toy toy : toys) {
+            System.out.printf("%-3s\t%-30s\t%-20s\t$%.2f\t%d\n",
+                    toy.getId(), toy.getName(), toy.getCategory(), toy.getPrice(), toy.getRecommendedAge());
+        }
+    }
+
+    private static void getParams() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("\nEnter parameters, separate all parameters with ';'");
@@ -108,125 +110,112 @@ public class Main implements Serializable {
                 break;
             }
 
-            // Split the input into individual parameters
-            String[] params = searchingCommand.split(";");
-
-            // Map to store parameters
-            Map<String, String> map = new HashMap<>();
-
-            // Process each parameter
-            for (String param : params) {
-                String[] keyValue = param.split("=");
-                if (keyValue.length == 2) {
-                    String key = keyValue[0].trim();
-                    String value = keyValue[1].trim();
-                    map.put(key, value);
-                } else {
-                    // Invalid parameter format
-                    System.out.println("Invalid parameter: " + param);
-                }
-            }
-
             // Process the collected parameters
-            Main.processParams(map);
+            Map<String, String> paramMap = parseParams(searchingCommand);
+            processParams(paramMap);
         }
         scanner.close();
-
     }
 
-    public static void processParams(Map<String, String> paramMap) {
-        List<List<? extends Toy>> list = new ArrayList<>();
+    private static Map<String, String> parseParams(String searchingCommand) {
+        Map<String, String> map = new HashMap<>();
+        String[] params = searchingCommand.split(";");
+        for (String param : params) {
+            String[] keyValue = param.split("=");
+            if (keyValue.length == 2) {
+                String key = keyValue[0].trim();
+                String value = keyValue[1].trim();
+                map.put(key, value);
+            } else {
+                // Invalid parameter format
+                System.out.println("Invalid parameter: " + param);
+            }
+        }
+        return map;
+    }
+
+    private static void processParams(Map<String, String> paramMap) {
+        List<List<? extends Toy>> lists = new ArrayList<>();
+
         if (!paramMap.containsKey("type")) {
-            list.add(constructiveController.getAllToys());
-            list.add(dollController.getAllToys());
-            list.add(puzzleController.getAllToys());
-            list.add(softController.getAllToys());
-            list.add(vehicleController.getAllToys());
+            lists.addAll(getAllToys());
         } else {
-            switch (paramMap.get("type").toLowerCase()) {
-                case "constructive":
-                    list.add(constructiveController.getAllToys());
-                    break;
-                case "doll":
-                    list.add(dollController.getAllToys());
-                    break;
-                case "puzzle":
-                    list.add(puzzleController.getAllToys());
-                    break;
-                case "soft":
-                    list.add(softController.getAllToys());
-                    break;
-                case "vehicle":
-                    list.add(vehicleController.getAllToys());
-                    break;
-                default:
-                    // Handle invalid type
-                    System.out.println("Invalid type: " + paramMap.get("type"));
-                    return;
-            }
-        }
-        if (paramMap.containsKey("category")) {
-            Iterator<List<? extends Toy>> iterator = list.iterator();
-            while (iterator.hasNext()) {
-                List<? extends Toy> toys = iterator.next();
-                Iterator<? extends Toy> toyIterator = toys.iterator();
-                while (toyIterator.hasNext()) {
-                    Toy toy = toyIterator.next();
-                    if (!toy.getCategory().toLowerCase().equals(paramMap.get("category").toLowerCase())) {
-                        toyIterator.remove();
-                    }
-                }
-            }
-        } else {
-            list.add(constructiveController.getAllToys());
-            list.add(dollController.getAllToys());
-            list.add(puzzleController.getAllToys());
-            list.add(softController.getAllToys());
-            list.add(vehicleController.getAllToys());
-        }
-        if (paramMap.containsKey("recommendedAge")) {
-            Iterator<List<? extends Toy>> iterator = list.iterator();
-            while (iterator.hasNext()) {
-                List<? extends Toy> toys = iterator.next();
-                Iterator<? extends Toy> toyIterator = toys.iterator();
-                while (toyIterator.hasNext()) {
-                    Toy toy = toyIterator.next();
-                    if (toy.getRecommendedAge() != Integer.parseInt(paramMap.get("recommendedAge"))) {
-                        toyIterator.remove();
-                    }
-                }
-            }
-        }
-        if (paramMap.containsKey("minPrice") && paramMap.containsKey("maxPrice")) {
-            Iterator<List<? extends Toy>> iterator = list.iterator();
-            while (iterator.hasNext()) {
-                List<? extends Toy> toys = iterator.next();
-                Iterator<? extends Toy> toyIterator = toys.iterator();
-                while (toyIterator.hasNext()) {
-                    Toy toy = toyIterator.next();
-                    if (toy.getPrice() < Double.parseDouble(paramMap.get("minPrice"))
-                            || toy.getPrice() > Double.parseDouble(paramMap.get("maxPrice"))) {
-                        toyIterator.remove();
-                    }
-                }
-            }
-        }
-        if (paramMap.containsKey("name")) {
-            Iterator<List<? extends Toy>> iterator = list.iterator();
-            while (iterator.hasNext()) {
-                List<? extends Toy> toys = iterator.next();
-                Iterator<? extends Toy> toyIterator = toys.iterator();
-                while (toyIterator.hasNext()) {
-                    Toy toy = toyIterator.next();
-                    if (!toy.getName().toLowerCase().equals(paramMap.get("name").toLowerCase())) {
-                        toyIterator.remove();
-                    }
-                }
-            }
+            lists.add(getToysByType(paramMap.get("type")));
         }
 
-        Main.printToyTable(list.get(0), "Search result");
+        filterToysByCategory(lists, paramMap.get("category"));
+        filterToysByRecommendedAge(lists, paramMap.get("recommendedAge"));
+        filterToysByPriceRange(lists, paramMap.get("minPrice"), paramMap.get("maxPrice"));
+        filterToysByName(lists, paramMap.get("name"));
 
+        for (List<? extends Toy> toys : lists) {
+            printToyTable(toys, "Search result");
+        }
     }
 
+    private static List<List<? extends Toy>> getAllToys() {
+        List<List<? extends Toy>> allToys = new ArrayList<>();
+        allToys.add(constructiveController.getAllToys());
+        allToys.add(dollController.getAllToys());
+        allToys.add(puzzleController.getAllToys());
+        allToys.add(softController.getAllToys());
+        allToys.add(vehicleController.getAllToys());
+        return allToys;
+    }
+
+    private static List<? extends Toy> getToysByType(String type) {
+        switch (type.toLowerCase()) {
+            case "constructive":
+                return constructiveController.getAllToys();
+            case "doll":
+                return dollController.getAllToys();
+            case "puzzle":
+                return puzzleController.getAllToys();
+            case "soft":
+                return softController.getAllToys();
+            case "vehicle":
+                return vehicleController.getAllToys();
+            default:
+                System.out.println("Invalid type: " + type);
+                return new ArrayList<>();
+        }
+    }
+
+    private static void filterToysByCategory(List<List<? extends Toy>> lists, String category) {
+        if (category == null)
+            return;
+        filterToys(lists, toy -> toy.getCategory().equalsIgnoreCase(category));
+    }
+
+    private static void filterToysByRecommendedAge(List<List<? extends Toy>> lists, String recommendedAge) {
+        if (recommendedAge == null)
+            return;
+        int age = Integer.parseInt(recommendedAge);
+        filterToys(lists, toy -> toy.getRecommendedAge() == age);
+    }
+
+    private static void filterToysByPriceRange(List<List<? extends Toy>> lists, String minPrice, String maxPrice) {
+        if (minPrice == null || maxPrice == null)
+            return;
+        double min = Double.parseDouble(minPrice);
+        double max = Double.parseDouble(maxPrice);
+        filterToys(lists, toy -> toy.getPrice() >= min && toy.getPrice() <= max);
+    }
+
+    private static void filterToysByName(List<List<? extends Toy>> lists, String name) {
+        if (name == null)
+            return;
+        filterToys(lists, toy -> toy.getName().equalsIgnoreCase(name));
+    }
+
+    private static void filterToys(List<List<? extends Toy>> lists, ToyFilter filter) {
+        for (List<? extends Toy> toys : lists) {
+            toys.removeIf(toy -> !filter.apply(toy));
+        }
+    }
+
+    @FunctionalInterface
+    interface ToyFilter {
+        boolean apply(Toy toy);
+    }
 }
