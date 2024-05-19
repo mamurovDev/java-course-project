@@ -47,61 +47,6 @@ public class ConstructiveToyTest {
             .build()
         )
       );
-    when(puzzleController.getAllToys())
-      .thenReturn(
-        Collections.singletonList(
-          new PuzzleToy.PuzzleToyBuilder()
-            .id("2")
-            .name("Puzzle")
-            .category("Puzzle")
-            .price(19.99)
-            .recommendedAge(8)
-            .difficulty("Hard")
-            .build()
-        )
-      );
-
-    when(softController.getAllToys())
-      .thenReturn(
-        Collections.singletonList(
-          new SoftToy.SoftToyBuilder()
-            .id("3")
-            .name("Teddy Bear")
-            .category("Soft")
-            .price(9.99)
-            .recommendedAge(3)
-            .mass(0.5)
-            .build()
-        )
-      );
-
-    when(dollController.getAllToys())
-      .thenReturn(
-        Collections.singletonList(
-          new DollToy.DollToyBuilder()
-            .id("4")
-            .name("Barbie")
-            .category("Doll")
-            .price(14.99)
-            .recommendedAge(5)
-            .gender(Gender.FEMALE)
-            .build()
-        )
-      );
-
-    when(vehicleController.getAllToys())
-      .thenReturn(
-        Collections.singletonList(
-          new VehicleToy.VehicleToyBuilder()
-            .id("5")
-            .name("Car")
-            .category("Vehicle")
-            .price(24.99)
-            .recommendedAge(4)
-            .numberOfWheels(4)
-            .build()
-        )
-      );
   }
 
   @Test
