@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.itpu.warehouse.service.SoftToyService;
 import com.itpu.warehouse.entity.SoftToy;
-import com.itpu.warehouse.entity.VehicleToy;
 
 public class SoftController implements ToyController {
     private final SoftToyService softToyService;

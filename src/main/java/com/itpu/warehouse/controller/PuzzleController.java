@@ -5,7 +5,6 @@ import com.itpu.warehouse.service.PuzzleToyService;
 import java.util.List;
 
 import com.itpu.warehouse.entity.PuzzleToy;
-import com.itpu.warehouse.entity.VehicleToy;
 
 public class PuzzleController implements ToyController {
     private final PuzzleToyService puzzleToyService;

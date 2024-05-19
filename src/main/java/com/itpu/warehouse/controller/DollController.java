@@ -3,7 +3,6 @@ package com.itpu.warehouse.controller;
 import java.util.List;
 
 import com.itpu.warehouse.entity.DollToy;
-import com.itpu.warehouse.entity.VehicleToy;
 import com.itpu.warehouse.service.DollToyService;
 
 public class DollController implements ToyController {

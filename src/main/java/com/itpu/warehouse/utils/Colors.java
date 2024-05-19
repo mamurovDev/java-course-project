@@ -4,6 +4,7 @@ import com.itpu.warehouse.enums.ColorsEnum;
 
 /**
  * InnerColors
+ * Class for applying colors to the console output.
  */
 
 public class Colors {
